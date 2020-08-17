@@ -1,0 +1,279 @@
+<html>
+<head>
+  <title>TRAVEL BOOK</title>
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+   <style>
+
+   body
+   {
+     font-family: Arial, Helvetica, sans-serif;
+     background-color: black;
+   }
+   *{
+     box-sizing: border-box;
+   }
+   .container{
+     max-width: 400px;
+     margin: auto;
+     margin-top: 20px;
+     margin-left: 900px;
+     margin-right: 10px;
+     padding: 20px;
+     font-family: sans-serif;
+     background: #f1f1f1;
+     border-radius: 10px;
+     text-align: center;
+   }
+   button{
+     padding:10px;
+     width: 50%;
+     box-sizing: border-box;
+     border: none;
+     border-radius: 10px;
+     font-weight: bold;
+   }
+   button a{
+     text-decoration: none;
+     color: #fff;
+   }
+   .google {
+     background-color: #dd4b39;
+     color: white;
+  }
+  .fb {
+    background-color: #3B5998;
+    color: white;
+  }
+  /* style the submit button */
+  input[type=submit] {
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+  }
+
+  input[type=submit]:hover {
+    background-color: #45a049;
+  }
+  /* Two-column layout */
+  .col {
+    float: left;
+    width: 40%;
+    margin: auto;
+    padding: 0 50px;
+    margin-top: 6px;
+  }
+
+  /* Clear floats after the columns */
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  input,
+  .btn {
+    width: 75%;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    margin: 5px 0;
+    opacity: 0.85;
+    display: inline-block;
+    font-size: 17px;
+    line-height: 20px;
+    text-decoration: none; /* remove underline from anchors */
+  }
+
+  input:hover,
+  .btn:hover {
+    opacity: 1;
+  }
+  /* bottom container */
+  .bottomcontainer {
+    background-color: #666;
+    max-width: 400px;
+    margin: auto;
+    margin-top: 10px;
+    margin-left: 900px;
+    margin-right: 10px;
+    padding: 5px;
+  }
+  @media screen and (max-width: 650px) {
+    .col {
+      width: 100%;
+      margin-top: 0;
+    }
+    /* hide the vertical line */
+    .vl {
+      display: none;
+    }
+    /* show the hidden text on small screens */
+    .hide-md-lg {
+      display: block;
+      text-align: center;
+    }
+  }
+  /* Full-width input fields */
+  input[type=text], input[type=password] {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    background: #f1f1f1;
+  }
+
+  input[type=text]:focus, input[type=password]:focus {
+    background-color: #ddd;
+    outline: none;
+  }
+
+  /* Overwrite default styles of hr */
+  hr {
+    border: 1px solid #f1f1f1;
+    margin-bottom: 25px;
+  }
+
+  /* Set a style for the submit/register button */
+  .registerbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+  }
+
+  .registerbtn:hover {
+    opacity:1;
+  }
+
+  /* Add a blue text color to links */
+  a {
+    color: dodgerblue;
+  }
+
+  /* Set a grey background color and center the text of the "sign in" section */
+  .containersigin {
+    background-color: #f1f1f1;
+    text-align: center;
+  }
+  .passwordcontainer {
+    padding: 16px;
+  }
+
+ </style>
+</head>
+<body style="background:url(https://media.cntraveler.com/photos/577d3357a08a7cb205515858/master/w_2048,h_1536,c_limit/california-beaches-03-huntington-beach-GettyImages-89571676.jpg) no-repeat center; background-size:cover">
+  <h1 style="color: #D7E3EC; font-family:Georgia, serif; margin-left: 30px; margin-top: inherit"><i>Welcome</i></h1>
+  <div class="container">
+  <form action="/" method="get">
+  <div class="row">
+
+    <h2 style="text-align:center">LogIn with</h2>
+      <p>Sign in manually:</p>
+      <input type="text" name="email_address" id="email_address" placeholder="sample@example.com" required>
+      <input type="password" name="user_password" id="user_password" placeholder="Password" required>
+      <input type="submit" name="Button" value="Login">
+      <p><hr>Or with Social Media</p>
+      <a href="/MainPage" class="fb btn"><i class="fa fa-facebook fa-fw"></i> Login with Facebook</a>
+      <a href="/MainPage" class="google btn"><i class="fa fa-google fa-fw"></i> Login with Google+</a>
+
+  </div>
+  </form>
+
+  </div>
+
+  <!--SignUp and forgot password code-->
+  <div class="bottomcontainer">
+  <div class="row">
+    <div class="col">
+      <a href="#" style="color:white" class="button btn" data-toggle="modal" data-target="#SignUp">SignUp</a>
+    </div>
+    <div class="col">
+      <a href="/MainPage" style="color:white" class="button btn"data-toggle="modal" data-target="#ForgotPassword">Forgot password?</a>
+    </div>
+  </div>
+  </div>
+
+  <!--Modal for SignUp-->
+
+  <div class="registercontainer">
+  <div class="modal fade" id ="SignUp" role="dialog">
+    <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+          <h1 class="modal-title">Register</h1>
+        </div>
+        <div class="modal-body">
+        <form action="/" method="post">
+        <div class="registercontainer">
+          <p>Please fill in this form to create an account.</p>
+          <hr>
+
+          <label for="name"><b>Name</b></label>
+          <input type="text" placeholder="abcd" name="user_name" id="user_name" required><hr>
+
+          <label for="email"><b>Email</b></label>
+          <input type="text" placeholder="sample@exapmle.com" name="email_address" id="email_address" required><hr>
+
+          <label for="psw"><b>Password</b></label>
+          <input type="password" placeholder="Enter Password" name="user_password" id="user_password" required><hr>
+
+          <label for="psw-repeat"><b>Repeat Password</b></label>
+          <input type="password" placeholder="Repeat Password" name="user_password_repeat" id="user_password_repeat" required><hr>
+          <hr>
+          <p>By creating an account you agree to our <a href="#">Terms & Privacy</a></p>
+
+          <div class="registerbtn">
+            <button type="submit" class="registerbtn">Register</button>
+          </div>
+         </div>
+        </form>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!--Modal for Forgot Password--->
+  <div class="registercontainer">
+  <div class="modal fade" id ="ForgotPassword" role="dialog">
+    <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+          <h1 class="modal-title">Forgot Password</h1>
+        </div>
+        <div class="modal-body">
+        <form action="/">
+        <div class="registercontainer">
+          <p>Create new Password.</p>
+          <hr>
+
+          <label for="email"><b>Email</b></label>
+          <input type="text" placeholder="sample@exapmle.com" name="email" id="email" required><hr>
+
+          <label for="psw"><b>Password</b></label>
+          <input type="password" placeholder="Enter Password" name="psw" id="psw" required><hr>
+
+          <label for="psw-repeat"><b>Repeat Password</b></label>
+          <input type="password" placeholder="Repeat Password" name="psw-repeat" id="psw-repeat" required><hr>
+          <hr>
+
+          <div class="registerbtn">
+            <button type="submit" class="submit">Confirm</button>
+          </div>
+         </div>
+        </form>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div
+</body>
