@@ -6,7 +6,6 @@
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-   <script defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"></script>
  </head>
  <style>
   * {
@@ -64,7 +63,7 @@
     /* Fake image */
     .fakeimg {
       background-color: #aaa;
-      width: 50%;
+      width: 100%;
       padding: 20px;
     }
     .card {
@@ -93,60 +92,34 @@
     }
 
     /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
-    @media screen and (max-width: 700px) {
+    @media screen and (max-width: 800px) {
       .leftcolumn, .rightcolumn {
-        width: 50%;
+        width: 100%;
         padding: 0;
       }
     }
-    @media screen and (max-width: 300px) {
+    @media screen and (max-width: 400px) {
       .topnav a {
         float: none;
         width: 100%;
       }
     }
 
-    #map {
-        width: 100%;
-        height: 300px;
-        background-color: grey;
-    }
 
   </style>
-  </head>
-  <script>
-    function initMap() {
-      var uluru = {lat: 53.338420, lng: -6.242200};
-      var map = new google.maps.Map(
-          document.getElementById('map'), {zoom: 4, center: uluru});
-      var marker = new google.maps.Marker({position: uluru, map: map});
-    }
-  </script>
-  <script defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCj4ZJWsTnO-t6tuiXxPlJjvsQKyECdf00&callback=initMap">
-  </script>
-  <body>
-
+ </head>
+ <body>
 
    <div class="header">
-    <h1>Travel Book</h1>
+    <h1>My Website</h1>
+    <p>Resize the browser window to see the effect.</p>
   </div>
 
   <div class="topnav">
     <a href="#" style="color:white" class="button btn" data-toggle="modal" data-target="#posts">Post</a>
-    <a href="/follower?email_address={{ email_address }}"><b><u>{{ userfollower }}</u></b>&nbsp;Follower</a>
-    <a href="/following?email_address={{ email_address }}"><b><u>{{ userfollowing }}</u></b>&nbsp;Following</a>
-    <form class="navbar-form navbar-right" method="post" action="/search?email_address={{ email_address }}">
-     <div class="input-group">
-      <input type="text" class="form-control" placeholder="Search" name="search">
-      <div class="input-group-btn">
-        <button class="btn btn-default" type="submit">
-          <li class="glyphicon glyphicon-search"></li>
-        </button>
-      </div>
-    </div>
-    </form>
-
+    <a href="/Follower"><b><u>{{ userfollower }}</u></b>Follower</a>
+    <a href="/Following"><b><u>{{ userfollowing }}</u></b>Following</a>
+    <a href="#">Notification</a>
     <a href="#">Message</a>
 
     <a href='/' style="float:right" name="button" id="Logout" value="Logout">Logout</a>
@@ -156,26 +129,21 @@
   <div class="row">
     <div class="leftcolumn">
       <div class="card">
-        <h2>Latest Post</h2>
-        {% for j in range(0,i) %}
-          <h4>Caption :{{ Caption[j] }}</h4>
-          <img src="{{ collection[j] }}" style="width:1000px;height:500px;">
-          <hr>
-          <h4>Experience :{{ experience[j] }}</h4>
-          <h4>Hotel :{{ hotel[j] }}</h4>
-          <h4>Flight :{{ flight[j] }}</h4>
-          <h4>Visa :{{ visa[j] }}</h4>
-        {% endfor%}
-        <hr>
       </div>
+      <div class="card">
+        <h2>Posts</h2>
+        <h5>
     </div>
     <div class="rightcolumn">
       <div class="card">
         <h2>About Me</h2>
+        <div class="fakeimg" style="height:100px;">Image</div>
       </div>
       <div class="card">
-        Google Map
-        <div id="map"></div>
+        <h3>Popular Post</h3>
+        <div class="fakeimg"><p>Image</p></div>
+        <div class="fakeimg"><p>Image</p></div>
+        <div class="fakeimg"><p>Image</p></div>
       </div>
       <div class="card">
         <h3>Follow Me</h3>
@@ -192,20 +160,10 @@
     <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-          <h1 class="modal-title">Post</h1>
+          <h1 class="modal-title">Register</h1>
         </div>
         <div class="modal-body">
-        <form action="{{ upload_url }}" method="post" name="Timeline" enctype="multipart/form-data">
-          <div class="registercontainer">
-            Upload File: <input type="file" name="Image" id="Image">
-            <input type="hidden" name="email_address" value="{{ email_address }}"><hr>
-            <textarea id="caption" name="caption"placeholder="Wrtie a Caption"  rows="4" cols="50"></textarea><hr>
-            <textarea id="experience" name="experience" placeholder="Share your experience" rows="4" cols="50"></textarea><hr>
-            <textarea id="hotel" name="hotel" placeholder="Share your hotel experience and details" rows="4" cols="50"></textarea><hr>
-            <textarea id="flight" name="flight"placeholder="Share your flight experience and details" rows="2" cols="50"></textarea><hr>
-            <textarea id="visa" name="visa"placeholder="visa if required" rows="2" cols="50"></textarea><hr>
-            <br>
-            <button id="Upload" name="Button" value="Upload">Upload</button>
+          <div class="registercontainer">>
           </div>
         </form>
 

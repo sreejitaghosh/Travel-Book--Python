@@ -3,6 +3,7 @@ import jinja2
 from google.appengine.ext import ndb
 import os
 from userData import userData
+from MainPage import MainPage
 from Timeline import Timeline
 from timelinepost import timelinepost
 from MainPageApi import MainPageApi
@@ -15,7 +16,7 @@ from newUsers import newUsers
 
 JINJA_ENVIRONMENT = jinja2.Environment(loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),extensions=['jinja2.ext.autoescape'],autoescape=True)
 
-class MainPage(webapp2.RequestHandler):
+class forgot_password(webapp2.RequestHandler):
     def get(self):
         self.response.headers['Content-Type'] = 'text/html'
 
@@ -35,7 +36,7 @@ class MainPage(webapp2.RequestHandler):
         template_values={
 
         }
-        template = JINJA_ENVIRONMENT.get_template('MainPage.html')
+        template = JINJA_ENVIRONMENT.get_template('forgot_password.html')
         self.response.write(template.render(template_values))
 
     def post(self):
@@ -43,7 +44,6 @@ class MainPage(webapp2.RequestHandler):
 
         Email = self.request.get('email_address')
         Password = self.request.get('user_password')
-        Name = self.request.get('user_name')
         Question = self.request.get('hint_question')
         Answer = self.request.get('hint_answer')
         Check = userData.query(userData.email_address == Email).fetch()
@@ -52,7 +52,6 @@ class MainPage(webapp2.RequestHandler):
             DBConnect = userData(id=Email)
             DBConnect.email_address = Email
             DBConnect.user_password = Password
-            DBConnect.user_name = Name
             DBConnect.hint_question = Question
             DBConnect.hint_answer = Answer
             DBConnect.put()
@@ -60,13 +59,12 @@ class MainPage(webapp2.RequestHandler):
         else:
             self.redirect('/')
 
+        template_values={
+
+        }
+        template = JINJA_ENVIRONMENT.get_template('forgot_password.html')
+        self.response.write(template.render(template_values))
+
 app = webapp2.WSGIApplication([
-('/',MainPage),
-('/Timeline',Timeline),
-('/MainPageApi',MainPageApi),
-('/postdetails',postdetails),
-('/follower',follower),
-('/following',following),
-('/search',search),
-('/newUsers',newUsers),
+('/forgot_password',forgot_password),
 ], debug=True)

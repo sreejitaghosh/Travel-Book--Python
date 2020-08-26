@@ -133,10 +133,8 @@
   </div>
 
   <div class="topnav">
-    <a href="#" style="color:white" class="button btn" data-toggle="modal" data-target="#posts">Post</a>
-    <a href="/follower?email_address={{ email_address }}"><b><u>{{ userfollower }}</u></b>&nbsp;Follower</a>
-    <a href="/following?email_address={{ email_address }}"><b><u>{{ userfollowing }}</u></b>&nbsp;Following</a>
-    <form class="navbar-form navbar-right" method="post" action="/search?email_address={{ email_address }}">
+    <a href="/MainPage">Login</a>
+    <form class="navbar-form navbar-right" method="" action="/search">
      <div class="input-group">
       <input type="text" class="form-control" placeholder="Search" name="search">
       <div class="input-group-btn">
@@ -146,39 +144,41 @@
       </div>
     </div>
     </form>
-
-    <a href="#">Message</a>
-
-    <a href='/' style="float:right" name="button" id="Logout" value="Logout">Logout</a>
-    <a href='/' style="float:right">Setting</a>
   </div>
 
   <div class="row">
     <div class="leftcolumn">
       <div class="card">
         <h2>Latest Post</h2>
-        {% for j in range(0,i) %}
-          <h4>Caption :{{ Caption[j] }}</h4>
-          <img src="{{ collection[j] }}" style="width:1000px;height:500px;">
-          <hr>
-          <h4>Experience :{{ experience[j] }}</h4>
-          <h4>Hotel :{{ hotel[j] }}</h4>
-          <h4>Flight :{{ flight[j] }}</h4>
-          <h4>Visa :{{ visa[j] }}</h4>
-        {% endfor%}
+        {% if SubLength == [] %}
+          {% for i in range(0,length) %}
+            <h4>Caption :{{ Caption[i] }}</h4>
+            <img src="{{ collection[i] }}" style="width:1000px;height:500px;">
+            <h4>Experience :{{ experience[i] }}</h4>
+            <h4>Hotel :{{ hotel[i] }}</h4>
+            <h4>Flight :{{ flight[i] }}</h4>
+            <h4>Visa :{{ visa[i] }}</h4>
+            <hr>
+          {% endfor%}
+        {% else %}
+          {% for i in range(0,length) %}
+            {% for j in range(0,SubLength[i]) %}
+            <hr>
+              <h4>Caption :{{ Caption[i][j] }}</h4>
+              <img src="{{ collection[i][j] }}" style="width:1000px;height:500px;">
+              <h4>Experience :{{ experience[i][j] }}</h4>
+              <h4>Hotel :{{ hotel[i][j] }}</h4>
+              <h4>Flight :{{ flight[i][j] }}</h4>
+              <h4>Visa :{{ visa[i][j] }}</h4>
+            {% endfor %}
+          {% endfor%}
+        {% endif %}
         <hr>
       </div>
     </div>
     <div class="rightcolumn">
       <div class="card">
-        <h2>About Me</h2>
-      </div>
-      <div class="card">
-        Google Map
-        <div id="map"></div>
-      </div>
-      <div class="card">
-        <h3>Follow Me</h3>
+
       </div>
     </div>
   </div>
@@ -194,22 +194,7 @@
       <div class="modal-header">
           <h1 class="modal-title">Post</h1>
         </div>
-        <div class="modal-body">
-        <form action="{{ upload_url }}" method="post" name="Timeline" enctype="multipart/form-data">
-          <div class="registercontainer">
-            Upload File: <input type="file" name="Image" id="Image">
-            <input type="hidden" name="email_address" value="{{ email_address }}"><hr>
-            <textarea id="caption" name="caption"placeholder="Wrtie a Caption"  rows="4" cols="50"></textarea><hr>
-            <textarea id="experience" name="experience" placeholder="Share your experience" rows="4" cols="50"></textarea><hr>
-            <textarea id="hotel" name="hotel" placeholder="Share your hotel experience and details" rows="4" cols="50"></textarea><hr>
-            <textarea id="flight" name="flight"placeholder="Share your flight experience and details" rows="2" cols="50"></textarea><hr>
-            <textarea id="visa" name="visa"placeholder="visa if required" rows="2" cols="50"></textarea><hr>
-            <br>
-            <button id="Upload" name="Button" value="Upload">Upload</button>
-          </div>
-        </form>
 
-        </div>
       </div>
       </div>
     </div>

@@ -136,83 +136,58 @@
     <a href="#" style="color:white" class="button btn" data-toggle="modal" data-target="#posts">Post</a>
     <a href="/follower?email_address={{ email_address }}"><b><u>{{ userfollower }}</u></b>&nbsp;Follower</a>
     <a href="/following?email_address={{ email_address }}"><b><u>{{ userfollowing }}</u></b>&nbsp;Following</a>
-    <form class="navbar-form navbar-right" method="post" action="/search?email_address={{ email_address }}">
-     <div class="input-group">
-      <input type="text" class="form-control" placeholder="Search" name="search">
-      <div class="input-group-btn">
-        <button class="btn btn-default" type="submit">
-          <li class="glyphicon glyphicon-search"></li>
-        </button>
+    <form class="navbar-form navbar-right" method="" action="/search">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search" name="search">
+        <div class="input-group-btn">
+          <button class="btn btn-default" type="submit">
+            <li class="glyphicon glyphicon-search"></li>
+          </button>
+        </div>
       </div>
-    </div>
     </form>
-
     <a href="#">Message</a>
-
     <a href='/' style="float:right" name="button" id="Logout" value="Logout">Logout</a>
     <a href='/' style="float:right">Setting</a>
   </div>
-
   <div class="row">
-    <div class="leftcolumn">
+    <center>
       <div class="card">
-        <h2>Latest Post</h2>
-        {% for j in range(0,i) %}
-          <h4>Caption :{{ Caption[j] }}</h4>
-          <img src="{{ collection[j] }}" style="width:1000px;height:500px;">
-          <hr>
-          <h4>Experience :{{ experience[j] }}</h4>
-          <h4>Hotel :{{ hotel[j] }}</h4>
-          <h4>Flight :{{ flight[j] }}</h4>
-          <h4>Visa :{{ visa[j] }}</h4>
-        {% endfor%}
-        <hr>
-      </div>
-    </div>
-    <div class="rightcolumn">
-      <div class="card">
-        <h2>About Me</h2>
-      </div>
-      <div class="card">
-        Google Map
-        <div id="map"></div>
-      </div>
-      <div class="card">
-        <h3>Follow Me</h3>
-      </div>
-    </div>
-  </div>
-
-  <div class="footer">
-
-  </div>
-
-  <div class="postscontainer">
-  <div class="modal fade" id ="posts" role="dialog">
-    <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-          <h1 class="modal-title">Post</h1>
-        </div>
-        <div class="modal-body">
-        <form action="{{ upload_url }}" method="post" name="Timeline" enctype="multipart/form-data">
-          <div class="registercontainer">
-            Upload File: <input type="file" name="Image" id="Image">
-            <input type="hidden" name="email_address" value="{{ email_address }}"><hr>
-            <textarea id="caption" name="caption"placeholder="Wrtie a Caption"  rows="4" cols="50"></textarea><hr>
-            <textarea id="experience" name="experience" placeholder="Share your experience" rows="4" cols="50"></textarea><hr>
-            <textarea id="hotel" name="hotel" placeholder="Share your hotel experience and details" rows="4" cols="50"></textarea><hr>
-            <textarea id="flight" name="flight"placeholder="Share your flight experience and details" rows="2" cols="50"></textarea><hr>
-            <textarea id="visa" name="visa"placeholder="visa if required" rows="2" cols="50"></textarea><hr>
+        <table>
+          <tr>
+            <td>Other User: {{ newEmail }}</td>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td><a href="/follower?email_address={{ newEmail }}">Follower (<b><u>{{ userfollower }}</u></b>)</a></td>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td><a href="/following?email_address={{ newEmail }}">Following (<b><u>{{ userfollowing }}</u></b>)</a></td>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td>
+            {% if followDecission == 'False' %}
+              <form action='/newUsers?newEmail={{ new_Email }}&oldEmail={{ old_Email }}' method='post'>
+                <input type="hidden" name="oldEmail" value="{{ oldEmail }}" />
+                <input type="hidden" name="newEmail" value="{{ newEmail }}" />
+              <input type="submit" name="submit" value="Follow">
+            </form>
+            {% elif followDecission == 'True' %}
+              <form action='/newUsers?newEmail={{ new_Email }}&oldEmail={{ old_Email }}' method='post'>
+                <input type="hidden" name="oldEmail" value="{{ oldEmail }}" />
+                <input type="hidden" name="newEmail" value="{{ newEmail }}" />
+              <input type="submit" name="submit" value="Unfollow">
+            </form>
+            {% endif %}
+            </td>
+            </tr>
+            </table>
             <br>
-            <button id="Upload" name="Button" value="Upload">Upload</button>
-          </div>
-        </form>
-
-        </div>
+            {% for j in range(0,length) %}
+              <img src="{{ collection[j] }}" style="width:200px;height:300px;">
+            <br>
+            Caption (if available) : {{ Caption[j] }}
+            <hr>
+          {% endfor%}
+        <br>
       </div>
-      </div>
-    </div>
+    </center>
   </div>
   </body>
 </html>

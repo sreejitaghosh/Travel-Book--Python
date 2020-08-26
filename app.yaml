@@ -8,4 +8,4 @@ libraries:
 
 handlers:
 - url: /.*
-  script: MainPage.app
+  script: openpage.app
