@@ -9,7 +9,7 @@ class MainPageApi_Registration(webapp2.RequestHandler):
 
         Json_Data = json.loads(self.request.body)
 
-        data = {}
+        Data = {}
         Perform = Json_Data["perform"]
         Email = Json_Data["email_address"]
         Password = Json_Data["user_password"]
