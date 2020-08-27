@@ -56,17 +56,10 @@ class MainPage(webapp2.RequestHandler):
             DBConnect.hint_question = Question
             DBConnect.hint_answer = Answer
             DBConnect.put()
-            self.redirect('/')
+            self.redirect('/MainPage')
         else:
-            self.redirect('/')
+            self.redirect('/MainPage')
 
 app = webapp2.WSGIApplication([
-('/',MainPage),
-('/Timeline',Timeline),
-('/MainPageApi',MainPageApi),
-('/postdetails',postdetails),
-('/follower',follower),
-('/following',following),
-('/search',search),
-('/newUsers',newUsers),
+    ('/MainPage',MainPage),
 ], debug=True)
