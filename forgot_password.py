@@ -6,7 +6,6 @@ from userData import userData
 from MainPage import MainPage
 from Timeline import Timeline
 from timelinepost import timelinepost
-from MainPageApi import MainPageApi
 from postdetails import postdetails
 from followerfollowing import followerfollowing
 from follower import follower

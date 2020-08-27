@@ -5,7 +5,6 @@ import os
 from userData import userData
 from Timeline import Timeline
 from timelinepost import timelinepost
-from MainPageApi import MainPageApi
 from postdetails import postdetails
 from followerfollowing import followerfollowing
 
