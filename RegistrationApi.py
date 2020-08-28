@@ -37,5 +37,5 @@ class RegistrationApi(webapp2.RequestHandler):
             self.response.write(json.dumps(Data))
 
 app = webapp2.WSGIApplication([
-    ('/MainPageApi_Registration',MainPageApi_Registration),
+    ('/RegistrationApi',RegistrationApi),
 ], debug=True)
