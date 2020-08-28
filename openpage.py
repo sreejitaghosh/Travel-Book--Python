@@ -6,7 +6,7 @@ from userData import userData
 from MainPage import MainPage
 from Timeline import Timeline
 from timelinepost import timelinepost
-from MainPageApi_Registration import MainPageApi_Registration
+from RegistrationApi import RegistrationApi
 from postdetails import postdetails
 from followerfollowing import followerfollowing
 from follower import follower
@@ -72,7 +72,7 @@ app = webapp2.WSGIApplication([
 ('/',openpage),
 ('/MainPage',MainPage),
 ('/Timeline',Timeline),
-('/MainPageApi_Registration',MainPageApi_Registration),
+('/RegistrationApi',RegistrationApi),
 ('/postdetails',postdetails),
 ('/follower',follower),
 ('/following',following),

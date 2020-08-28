@@ -3,13 +3,13 @@ import json
 from google.appengine.ext import ndb
 from userData import userData
 
-class MainPageApi_Registration(webapp2.RequestHandler):
+class RegistrationApi(webapp2.RequestHandler):
     def post(self):
         self.response.headers['Content-Type'] = 'application/json'
 
         Json_Data = json.loads(self.request.body)
 
-        data = {}
+        Data = {}
         Perform = Json_Data["perform"]
         Email = Json_Data["email_address"]
         Password = Json_Data["user_password"]

@@ -5,7 +5,6 @@ import os
 from userData import userData
 from Timeline import Timeline
 from timelinepost import timelinepost
-from MainPageApi_Registration import MainPageApi_Registration
 from postdetails import postdetails
 from followerfollowing import followerfollowing
 
@@ -44,5 +43,5 @@ class follower(webapp2.RequestHandler):
         self.response.write(template.render(template_values))
 
 app = webapp2.WSGIApplication([
-('/follower',follower),
+    ('/follower',follower),
 ], debug=True)

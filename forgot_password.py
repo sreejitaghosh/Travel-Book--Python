@@ -65,5 +65,5 @@ class forgot_password(webapp2.RequestHandler):
         self.response.write(template.render(template_values))
 
 app = webapp2.WSGIApplication([
-('/forgot_password',forgot_password),
+    ('/forgot_password',forgot_password),
 ], debug=True)
