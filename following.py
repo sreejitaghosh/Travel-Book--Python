@@ -44,5 +44,5 @@ class following(webapp2.RequestHandler):
         self.response.write(template.render(template_values))
 
 app = webapp2.WSGIApplication([
-('/following',following),
+    ('/following',following),
 ], debug=True)

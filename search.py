@@ -79,5 +79,5 @@ class search(webapp2.RequestHandler):
         self.response.write(template.render(template_values))
 
 app = webapp2.WSGIApplication([
-('/search',search),
+    ('/search',search),
 ], debug=True)

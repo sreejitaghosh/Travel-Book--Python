@@ -127,5 +127,5 @@ class newUsers(blobstore_handlers.BlobstoreUploadHandler):
             self.redirect('/newUsers?email_address='+new_Email&'oldEmail='+old_Email)
 
 app = webapp2.WSGIApplication([
-('/newUsers',newUsers),
+    ('/newUsers',newUsers),
 ], debug=True)
