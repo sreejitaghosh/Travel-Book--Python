@@ -28,7 +28,7 @@ class MainPage(webapp2.RequestHandler):
                 if (Check_login.user_password == Password):
                     self.redirect('/Timeline?email_address='+Email)
                 else:
-                    self.redirect('/')
+                    self.redirect('/MainPage')
 
 
         template_values={

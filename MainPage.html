@@ -166,6 +166,26 @@
   .passwordcontainer {
     padding: 16px;
   }
+  .alert {
+  padding: 20px;
+  background-color: #f44336;
+  color: white;
+}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}
 
  </style>
 </head>
@@ -176,14 +196,9 @@
   <div class="row">
 
     <h2 style="text-align:center">LogIn with</h2>
-      <p>Sign in manually:</p>
       <input type="text" name="email_address" id="email_address" placeholder="sample@example.com" required>
       <input type="password" name="user_password" id="user_password" placeholder="Password" required>
       <input type="submit" name="Button" value="Login">
-      <p><hr>Or with Social Media</p>
-      <a href="/MainPage" class="fb btn"><i class="fa fa-facebook fa-fw"></i> Login with Facebook</a>
-      <a href="/MainPage" class="google btn"><i class="fa fa-google fa-fw"></i> Login with Google+</a>
-
   </div>
   </form>
 

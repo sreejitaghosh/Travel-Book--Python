@@ -18,7 +18,7 @@ class Timeline(blobstore_handlers.BlobstoreUploadHandler):
     def get(self):
         self.response.headers['Content-Type'] = 'text/html'
 
-        Email = self.request.get('email_address')
+
         collection_key = []
         collection = []
         Caption = []
@@ -30,6 +30,19 @@ class Timeline(blobstore_handlers.BlobstoreUploadHandler):
         upload_url = blobstore.create_upload_url('/Timeline')
         userfollower = 0
         userfollowing = 0
+
+
+        #For LogIn
+        Email = self.request.get('email_address')
+        Button = self.request.get('Button')
+        if(Button == "Login"):
+            Password = self.request.get('user_password')
+            Check_login = ndb.Key('userData',Email).get()
+            if Check_login != None:
+                if (Check_login.user_password == Password):
+                    self.redirect('/Timeline?email_address='+Email)
+                else:
+                    self.redirect('/MainPage')
 
         # For logout Button
         button = ""

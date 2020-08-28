@@ -14,6 +14,8 @@ from following import following
 from search import search
 from newUsers import newUsers
 from forgot_password import forgot_password
+from forgot_password_Question import forgot_password_Question
+from forgot_password_Change import forgot_password_Change
 
 JINJA_ENVIRONMENT = jinja2.Environment(loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),extensions=['jinja2.ext.autoescape'],autoescape=True)
 
@@ -79,4 +81,6 @@ app = webapp2.WSGIApplication([
     ('/search',search),
     ('/newUsers',newUsers),
     ('/forgot_password',forgot_password),
+    ('/forgot_password_Question',forgot_password_Question),
+    ('/forgot_password_Change',forgot_password_Change),
 ], debug=True)
