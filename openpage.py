@@ -69,14 +69,14 @@ class openpage(webapp2.RequestHandler):
 
 
 app = webapp2.WSGIApplication([
-('/',openpage),
-('/MainPage',MainPage),
-('/Timeline',Timeline),
-('/RegistrationApi',RegistrationApi),
-('/postdetails',postdetails),
-('/follower',follower),
-('/following',following),
-('/search',search),
-('/newUsers',newUsers),
-('/forgot_password',forgot_password),
+    ('/',openpage),
+    ('/MainPage',MainPage),
+    ('/Timeline',Timeline),
+    ('/RegistrationApi',RegistrationApi),
+    ('/postdetails',postdetails),
+    ('/follower',follower),
+    ('/following',following),
+    ('/search',search),
+    ('/newUsers',newUsers),
+    ('/forgot_password',forgot_password),
 ], debug=True)

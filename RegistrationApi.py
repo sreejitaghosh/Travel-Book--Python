@@ -4,6 +4,10 @@ from google.appengine.ext import ndb
 from userData import userData
 
 class RegistrationApi(webapp2.RequestHandler):
+    def get(self):
+        self.response.headers['Content-Type'] = 'text/html'
+        self.redirect('/')
+
     def post(self):
         self.response.headers['Content-Type'] = 'application/json'
 
