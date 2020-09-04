@@ -4,6 +4,7 @@
    <meta charset="utf-8">
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
    <script defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"></script>
@@ -129,12 +130,12 @@
 
 
    <div class="header">
-    <h1>Travel Book</h1>
+      <h1><a href="/MainPage">Travel Book</a></h1>
   </div>
 
   <div class="topnav">
     <a href="/MainPage">Login</a>
-    <form class="navbar-form navbar-right" method="" action="/search">
+    <form class="navbar-form navbar-right" method="" action="/MainPage">
      <div class="input-group">
       <input type="text" class="form-control" placeholder="Search" name="search">
       <div class="input-group-btn">
@@ -152,6 +153,8 @@
         <h2>Latest Post</h2>
         {% if SubLength == [] %}
           {% for i in range(0,length) %}
+          <h4><i style="font-size:24px;color:red" class="fa">&#xf041;</i> Location :<a href="/search?email_address={{ email_address }}">{{ to_location[j] }}</a></h4>
+            <h4>User: {{ Name }}</h4
             <h4>Caption :{{ Caption[i] }}</h4>
             <img src="{{ collection[i] }}" style="width:1000px;height:500px;">
             <h4>Experience :{{ experience[i] }}</h4>
@@ -164,6 +167,8 @@
           {% for i in range(0,length) %}
             {% for j in range(0,SubLength[i]) %}
             <hr>
+            <h4><i style="font-size:24px;color:red" class="fa">&#xf041;</i> Location :<a href="/search">{{ to_location[j] }}</a></h4>
+              <h4>User: {{ Name }}</h4>
               <h4>Caption :{{ Caption[i][j] }}</h4>
               <img src="{{ collection[i][j] }}" style="width:1000px;height:500px;">
               <h4>Experience :{{ experience[i][j] }}</h4>

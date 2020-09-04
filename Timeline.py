@@ -3,6 +3,11 @@ import jinja2
 import os
 from google.appengine.api import users
 from google.appengine.ext import ndb
+import json
+
+import urllib
+from google.appengine.api import urlfetch
+from urllib import urlencode
 
 from google.appengine.ext import blobstore
 from google.appengine.ext.webapp import blobstore_handlers
@@ -26,10 +31,18 @@ class Timeline(blobstore_handlers.BlobstoreUploadHandler):
         hotel = []
         flight = []
         visa = []
+        from_location = []
+        to_location = []
         length = 0
         upload_url = blobstore.create_upload_url('/Timeline')
         userfollower = 0
         userfollowing = 0
+        Comments = []
+        Commenting_User = []
+        NumberOfComments = []
+        timeline_Post_Image_Key = []
+        userlogin = self.request.get('email_address')
+        Name = self.request.get('user_name')
 
 
         #For LogIn
@@ -54,15 +67,17 @@ class Timeline(blobstore_handlers.BlobstoreUploadHandler):
         #For displaying images
         collection_key = ndb.Key('timelinepost',Email).get()
         if collection_key != None:
-            i = len(collection_key.caption) - 1
-            while i > - 1:
-                collection.append(collection_key.photo_url[i])
-                Caption.append(collection_key.caption[i])
-                experience.append(collection_key.experience[i])
-                hotel.append(collection_key.hotel[i])
-                flight.append(collection_key.flight[i])
-                visa.append(collection_key.visa[i])
-                i = i -1
+            k = len(collection_key.caption) - 1
+            while k > - 1:
+                collection.append(collection_key.photo_url[k])
+                Caption.append(collection_key.caption[k])
+                experience.append(collection_key.experience[k])
+                hotel.append(collection_key.hotel[k])
+                flight.append(collection_key.flight[k])
+                visa.append(collection_key.visa[k])
+                from_location.append(collection_key.from_location[k])
+                to_location.append(collection_key.to_location[k])
+                k = k -1
             length = len(collection)
 
         # for follower and Following
@@ -71,7 +86,27 @@ class Timeline(blobstore_handlers.BlobstoreUploadHandler):
             userfollower = len(collect.follower)
             userfollowing = len(collect.following)
 
+        # For comments
+        comments_Data = []
+        NumberOfComments = []
+        collection_key1 = timelinepost.query().fetch()
+        if collection_key1 != []:
+            for i in collection_key1:
+                for j in range(0,len(i.photo_url)):
+                    CommentKey = Email+""+i.to_location[j]
+                    Comments = ndb.Key('CommentDB',CommentKey).get()
+                    if(Comments != None):
+                        comments_Data.append(Comments)
+                        NumberOfComments.append(len(Comments))
+                    else:
+                        comments_Data.append("No Comments yet.")
+                        NumberOfComments.append(1)
+        self.response.write(collection_key)
+        self.response.write(comments_Data)
+        self.response.write(NumberOfComments)
+
         template_values = {
+            'userlogin' : userlogin,
             'upload_url' : upload_url,
             'email_address' : Email,
             'collection' : collection,
@@ -80,10 +115,13 @@ class Timeline(blobstore_handlers.BlobstoreUploadHandler):
             'hotel' : hotel,
             'flight' : flight,
             'visa' : visa,
-            'i' : length,
+            'from_location' : from_location,
+            'to_location' : to_location,
+            'k' : length,
             'userfollower': userfollower,
             'userfollowing': userfollowing,
-            'email_address': Email,
+            'timeline_Post_Image_Key' : timeline_Post_Image_Key,
+            'comments_Data' : comments_Data,
         }
 
         template = JINJA_ENVIRONMENT.get_template('Timeline.html')
@@ -91,6 +129,7 @@ class Timeline(blobstore_handlers.BlobstoreUploadHandler):
 
     def post(self):
         self.response.headers['Content-Type'] = 'text/html'
+
         upload = self.get_uploads()[0]
         self.response.write(upload)
         blobinfo = blobstore.BlobInfo(upload.key())
@@ -101,8 +140,30 @@ class Timeline(blobstore_handlers.BlobstoreUploadHandler):
         hotel = self.request.get('hotel')
         flight = self.request.get('flight')
         visa = self.request.get('visa')
+        to_location = self.request.get('to_location')
+        from_location = self.request.get('from_location')
         collection_key = ndb.Key('timelinepost',Email)
         collection_key = collection_key.get()
+
+        API_Key = "AIzaSyCyr7VHb4Dv8xQq8zMx_i19rKJE_x4rtsw"
+        p1 = {"address":from_location,"key":API_Key}
+        GoogleAPI = "https://maps.googleapis.com/maps/api/geocode/json"
+        url_params = urlencode(p1)
+        url = GoogleAPI+"?"+url_params
+        result = urlfetch.fetch(url=url,method=urlfetch.POST,headers=p1)
+        Lat_from = json.loads(result.content)['results'][0]['geometry']['location']['lat']
+        Long_from = json.loads(result.content)['results'][0]['geometry']['location']['lng']
+
+        API_Key = "AIzaSyCyr7VHb4Dv8xQq8zMx_i19rKJE_x4rtsw"
+        p2 = {"address":to_location,"key":API_Key}
+        GoogleAPI = "https://maps.googleapis.com/maps/api/geocode/json"
+        url_params = urlencode(p2)
+        url = GoogleAPI+"?"+url_params
+        result = urlfetch.fetch(url=url,method=urlfetch.POST,headers=p2)
+        Lat_to = json.loads(result.content)['results'][0]['geometry']['location']['lat']
+        Long_to = json.loads(result.content)['results'][0]['geometry']['location']['lng']
+
+        # For image upload in blobstore
 
         if collection_key == None:
             collection_key = timelinepost(id = Email)
@@ -113,14 +174,31 @@ class Timeline(blobstore_handlers.BlobstoreUploadHandler):
             collection_key.hotel.append(hotel)
             collection_key.flight.append(flight)
             collection_key.visa.append(visa)
+
+            collection_key.from_location.append(from_location)
+            collection_key.from_latitude.append(Lat_from)
+            collection_key.from_longitude.append(Long_from)
+
+            collection_key.to_location.append(to_location)
+            collection_key.to_latitude.append(Lat_to)
+            collection_key.to_longitude.append(Long_to)
         else:
-            collection_key.email_address = Email
-            collection_key.photo_url.append(image_url)
-            collection_key.caption.append(caption)
-            collection_key.experience.append(experience)
-            collection_key.hotel.append(hotel)
-            collection_key.flight.append(flight)
-            collection_key.visa.append(visa)
+            if to_location not in collection_key.to_location:
+                collection_key.email_address = Email
+                collection_key.photo_url.append(image_url)
+                collection_key.caption.append(caption)
+                collection_key.experience.append(experience)
+                collection_key.hotel.append(hotel)
+                collection_key.flight.append(flight)
+                collection_key.visa.append(visa)
+
+                collection_key.from_location.append(from_location)
+                collection_key.from_latitude.append(Lat_from)
+                collection_key.from_longitude.append(Long_from)
+
+                collection_key.to_location.append(to_location)
+                collection_key.to_latitude.append(Lat_to)
+                collection_key.to_longitude.append(Long_to)
 
         collection_key.put()
         self.redirect('/Timeline?email_address='+Email)

@@ -6,3 +6,7 @@ class userData(ndb.Model):
     user_name =  ndb.StringProperty()
     hint_question = ndb.StringProperty()
     hint_answer = ndb.StringProperty()
+    user_contact_number = ndb.StringProperty()
+    Address = ndb.StringProperty()
+    Gender = ndb.StringProperty()
+    date_of_birth = ndb.StringProperty()

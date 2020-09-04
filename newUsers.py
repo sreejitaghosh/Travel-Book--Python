@@ -29,12 +29,12 @@ class newUsers(blobstore_handlers.BlobstoreUploadHandler):
         userfollower1 = 0
         userfollowing1 = 0
         followDecission = "False"
-        oldEmail = self.request.get('email_address')
-        newEmail = self.request.get('email_address')
-#        newUsers = ndb.Key('userData',newEmail).get()
+
+        email_address = self.request.get('email_address')
+        newUsersEmail = self.request.get('newEmail')
 
 
-        collection_key = ndb.Key('timelinepost',newEmail)
+        collection_key = ndb.Key('timelinepost',newUsersEmail)
         collection_key = collection_key.get()
         if collection_key != None:
             i = len(collection_key.photo_url) - 1
@@ -44,7 +44,7 @@ class newUsers(blobstore_handlers.BlobstoreUploadHandler):
                 i = i - 1
             length = len(collection)
 
-        newUserFFList = ndb.Key('followerfollowing',newEmail).get()
+        newUserFFList = ndb.Key('followerfollowing',newUsersEmail).get()
         if newUserFFList != None:
             userfollower = len(newUserFFList.follower)
             userfollowing = len(newUserFFList.following)
@@ -53,7 +53,7 @@ class newUsers(blobstore_handlers.BlobstoreUploadHandler):
         collect = ndb.Key('followerfollowing',oldUsersEmail).get()
         if collect != None:
             for i in collect.following:
-                if i == newEmail:
+                if i == newUsersEmail:
                     followDecission = 'True'
                     break
 
@@ -63,14 +63,13 @@ class newUsers(blobstore_handlers.BlobstoreUploadHandler):
              'Caption' : Caption,
              'length' : length,
              'newUsers' : newUsers,
-             'newEmail' : newEmail,
+             'newEmail' : newUsersEmail,
              'oldUsersEmail': oldUsersEmail,
              'userfollower': userfollower,
              'userfollowing': userfollowing,
              'userfollower1': userfollower1,
              'userfollowing1': userfollowing1,
              'followDecission' : followDecission,
-             'oldEmail' : oldEmail,
         }
         template = JINJA_ENVIRONMENT.get_template('newUsers.html')
         self.response.write(template.render(template_values))
@@ -78,12 +77,12 @@ class newUsers(blobstore_handlers.BlobstoreUploadHandler):
     def post(self):
         self.response.headers['Content-Type'] = 'text/html'
 
-        new_Email = self.request.get('newEmail')
-        new_Users = ndb.Key('userData',new_Email).get()
+        new_Email = self.request.get('newUsersEmail')
+        new_Users = ndb.Key('followerfollowing',new_Email).get()
         collect_ff_new = ndb.Key('followerfollowing',new_Email).get()
 
-        old_Email = self.request.get('oldEmail')
-        old_Users = ndb.Key('userData',old_Email).get()
+        old_Email = self.request.get('oldUsersEmail')
+        old_Users = ndb.Key('followerfollowing',old_Email).get()
         collect_ff_old = ndb.Key('followerfollowing',old_Email).get()
 
         button = self.request.get('submit')
@@ -91,7 +90,8 @@ class newUsers(blobstore_handlers.BlobstoreUploadHandler):
         if button == 'Follow':
             if new_Email != old_Email:
                 if collect_ff_old != None:
-                    collect_ff_old.following.append(new_Email)
+                    if(new_Email not in collect_ff_old.following):
+                        collect_ff_old.following.append(new_Email)
                     collect_ff_old.put()
                 else:
                     collect_ff_old = followerfollowing(id=old_Email)
@@ -99,13 +99,14 @@ class newUsers(blobstore_handlers.BlobstoreUploadHandler):
                     collect_ff_old.put()
 
                 if collect_ff_new != None:
-                    collect_ff_new.follower.append(userData.email_address)
+                    if(new_Email not in collect_ff_new.follower):
+                        collect_ff_new.follower.append(followerfollowing.new_Email)
                     collect_ff_new.put()
                 else:
                     collect_ff_new = followerfollowing(id=new_Email)
-                    collect_ff_new.follower.append(user.email())
+                    collect_ff_new.follower.append(new_Email)
                     collect_ff_new.put()
-            self.redirect('/newUsers?email_address='+new_Email&'oldEmail='+old_Email)
+            self.redirect('/newUsers?newEmail='+new_Email+'&email_address='+old_Email)
 
         elif button == 'Unfollow':
             if len(collect_ff_old.following) == 1:
@@ -124,7 +125,7 @@ class newUsers(blobstore_handlers.BlobstoreUploadHandler):
                         del collect_ff_new.follower[l]
                         collect_ff_new.put()
                         break
-            self.redirect('/newUsers?email_address='+new_Email&'oldEmail='+old_Email)
+            self.redirect('/newUsers?newEmail='+new_Email+'&email_address='+old_Email)
 
 app = webapp2.WSGIApplication([
     ('/newUsers',newUsers),

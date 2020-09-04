@@ -2,20 +2,27 @@ import webapp2
 import jinja2
 from google.appengine.ext import ndb
 import os
+
 from userData import userData
-from MainPage import MainPage
-from Timeline import Timeline
 from timelinepost import timelinepost
-from RegistrationApi import RegistrationApi
-from postdetails import postdetails
 from followerfollowing import followerfollowing
+from CommentDB import CommentDB
+
+from MainPage import MainPage
+from forgot_password import forgot_password
+from forgot_password_Question import forgot_password_Question
+from forgot_password_Change import forgot_password_Change
+
+from Timeline import Timeline
+from postdetails import postdetails
 from follower import follower
 from following import following
 from search import search
 from newUsers import newUsers
-from forgot_password import forgot_password
-from forgot_password_Question import forgot_password_Question
-from forgot_password_Change import forgot_password_Change
+from userUpdate import userUpdate
+from knn import knn
+
+from RegistrationApi import RegistrationApi
 
 JINJA_ENVIRONMENT = jinja2.Environment(loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),extensions=['jinja2.ext.autoescape'],autoescape=True)
 
@@ -25,13 +32,44 @@ class openpage(webapp2.RequestHandler):
 
         collection_key = []
         collection = []
+        User = []
         Caption = []
         experience = []
         hotel = []
         flight = []
         visa = []
+        from_location = []
+        to_location = []
         length = 0
         SubLength = []
+
+        Name = self.request.get('user_name')
+        email_address = self.request.get('email_address')
+        from_location =self.request.get('from_location')
+
+        Raw_Data = timelinepost.query()
+        Search_KeyWord = self.request.get('search').lower()
+        #email based
+        Result_email = []
+        Found = Raw_Data.filter(timelinepost.email_address == Search_KeyWord).fetch()
+        if Found == []:
+            Raw_Data = Raw_Data.fetch()
+            for i in range(0,len(Raw_Data)):
+                if Raw_Data[i].email_address.find(Search_KeyWord) != -1:
+                    Result_email.append(Raw_Data[i].email_address)
+        else:
+            Result_email.append(Found[0].email_address)
+
+        #Location based
+        Result_to_location = []
+        for i in range(0,len(Raw_Data)):
+            for j in range(0,len(Raw_Data[i].to_location)):
+                if(Raw_Data[i].to_location[j].lower() == Search_KeyWord):
+                    Result_to_location.append(Raw_Data[i].to_location[j])
+                    Result_email.append(Raw_Data[i].email_address)
+                elif Raw_Data[i].to_location[j].lower().find(Search_KeyWord) != -1:
+                    Result_to_location.append(Raw_Data[i].to_location[j])
+                    Result_email.append(Raw_Data[i].email_address)
 
         Email = self.request.get('email_address')
         if Email == "":
@@ -42,6 +80,7 @@ class openpage(webapp2.RequestHandler):
                 experience.append(collection_key[i].experience)
                 hotel.append(collection_key[i].hotel)
                 flight.append(collection_key[i].flight)
+                to_location.append(collection_key[i].to_location)
                 visa.append(collection_key[i].visa)
                 SubLength.append(len(collection_key[i].caption))
             length = len(collection_key)
@@ -52,6 +91,7 @@ class openpage(webapp2.RequestHandler):
             experience.append(collection_key.experience)
             hotel.append(collection_key.hotel)
             flight.append(collection_key.flight)
+            to_location.append(collection_key[i].to_location)
             visa.append(collection_key.visa)
             length = len(collection_key)
 
@@ -63,8 +103,13 @@ class openpage(webapp2.RequestHandler):
             'hotel' : hotel,
             'flight' : flight,
             'visa' : visa,
+            'from_location': from_location,
+            'to_location' : to_location,
             'length' : length,
+            'User': Name,
             'SubLength' : SubLength,
+            'Result_to_location': Result_to_location,
+            'email_address': email_address,
         }
         template = JINJA_ENVIRONMENT.get_template('openpage.html')
         self.response.write(template.render(template_values))
@@ -83,4 +128,6 @@ app = webapp2.WSGIApplication([
     ('/forgot_password',forgot_password),
     ('/forgot_password_Question',forgot_password_Question),
     ('/forgot_password_Change',forgot_password_Change),
+    ('/userUpdate',userUpdate),
+    ('/knn',knn),
 ], debug=True)

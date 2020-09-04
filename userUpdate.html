@@ -172,12 +172,6 @@
   .dropdown:hover .dropdown-content {
     display: block;
 }
-.first {
-  float:left;
-}
-.second {
-  float:right;
-}
   </style>
   </head>
   <script>
@@ -202,7 +196,7 @@
     <a href="#" style="color:white" class="button btn" data-toggle="modal" data-target="#posts">Post</a>
     <a href="/follower?email_address={{ email_address }}"><b><u>{{ userfollower }}</u></b>&nbsp;Follower</a>
     <a href="/following?email_address={{ email_address }}"><b><u>{{ userfollowing }}</u></b>&nbsp;Following</a>
-    <form class="navbar-form navbar-right" method="post" action="/search?email_address={{ email_address }}&user_name={{ user_name }}">
+    <form class="navbar-form navbar-right" method="post" action="/search?email_address={{ email_address }}">
      <div class="input-group">
       <input type="text" class="form-control" placeholder="Search" name="search">
       <div class="input-group-btn">
@@ -219,93 +213,55 @@
     <li class="dropdown">
     <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Setting<span class="caret"></span></a>
     <ul class="dropdown-content">
-    <li><a href='/userUpdate?email_address={{ email_address }}'>Update Profile</a></li>
+    <li><a href='/userUpdate'>Update Profile</a></li>
       <li><a href="#">Logout</a></li>
     </ul>
   </li>
-</li>
+  </li>
+
   </div>
 
 
 
   <div class="row">
-    <div class="leftcolumn">
-      <div class="card">
-        <h2>Latest Post</h2>
-        <hr>
-        {% for j in range(0,k) %}
-
-        <h4><i style="font-size:24px;color:red" class="fa">&#xf041;</i> Location :<a href="/postdetails?email_address={{ email_address }}">{{ to_location[j] }}</a></h4>
-        <h4>Caption :{{ Caption[j] }}</h4>
-          <img src="{{ collection[j] }}" style="width:1000px;height:500px;">
-
-          <h4>Experience :{{ experience[j] }}</h4>
-          <h4>Hotel :{{ hotel[j] }}</h4>
-          <h4>Flight :{{ flight[j] }}</h4>
-          <h4>Visa :{{ visa[j] }}</h4>
-          <br>
-
-          {% for h in comments_Data %}
-            {% if h == "No Comments yet." %}
-              {{ h }}
-            {% else %}
-              There are few comments for this post.
-            {% endif %}
-          {% endfor %}
+    <center>
+    <form action="/userUpdate?email_address={{ email_address }}" method="post">
           <hr>
+
+          <label for="name"><b>Name</b></label>
+          <input type="text"  name="Name" id="Name" value="{{ user_name }}" disabled><hr>
+
+          <label for="email"><b>Email</b></label>
+          <input type="text" placeholder="sample@example.com" name="email_address" id="email_address" value="{{ email_address }}" disabled><hr>
+          <input type="hidden" placeholder="sample@example.com" name="email_address" id="email_address" value="{{ email_address }}">
+
+          <label for="user_contact_number"><b>Contact Number</b></label>
+          <input type="text" placeholder="+353-*****123" name="user_contact_number" id="user_contact_number" required><hr>
+
+          <label for="Address"><b>Address</b></label>
+          <input type="text" placeholder="" name="Address" id="Address" required><hr>
+
+          <label for="hint_question"><b>Hint Question</b></label>
+          <select name="hint_question" id="hint_question" required>
+            <option value="select">Select</option>
+            <option value="whats your favorite book" required>Whats your favorite book</option>
+            <option value="Mother Maidan's Name" required>Mother Maidan's Name</option>
+            <option value="Favorite Cusine" required>Favorite Cusine</option>
+            <option value="Favorite Destination" required>Favorite Destination</option>
+            <option value="Birth Place"required>Birth Place</option>
+          </select><hr>
+
+          <label for="answer"><b>Answer</b></label>
+          <input type="text" placeholder="Answer" name="hint_answer" id="hint_answer" required><hr>
+
+          <button type="submit" class="registerbtn">Edit</button>
+          <button type="submit" class="registerbtn">Reset</button>
           <hr>
-        {% endfor %}
-
-        <
-        <hr>
-      </div>
-    </div>
-    <div class="rightcolumn">
-      <div class="card">
-        <h2>About Me</h2>
-      </div>
-      <div class="card">
-        Google Map
-        <div id="map"></div>
-      </div>
-      <div class="card">
-        <h3>Follow Me</h3>
-      </div>
-    </div>
-  </div>
-
-  <div class="footer">
-
-  </div>
-
-  <div class="postscontainer">
-  <div class="modal fade" id ="posts" role="dialog">
-    <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-          <h1 class="modal-title">Post</h1>
-        </div>
-        <div class="modal-body">
-        <form action="{{ upload_url }}" method="post" name="Timeline" enctype="multipart/form-data">
-          <div class="registercontainer">
-            Upload File: <input type="file" name="Image" id="Image">
-            <input type="hidden" name="email_address" value="{{ email_address }}"><hr>
-            <div class = first><input type="text" name="from_location" id="from_location" placeholder="From" required></div>
-            <div class = second><input type="text" name="to_location" id="to_location" placeholder="To" required></div><hr><hr>
-            <textarea id="caption" name="caption"placeholder="Wrtie a Caption"  rows="4" cols="50"></textarea><hr>
-            <textarea id="experience" name="experience" placeholder="Share your experience" rows="4" cols="50"></textarea><hr>
-            <textarea id="hotel" name="hotel" placeholder="Share your hotel experience and details" rows="4" cols="50"></textarea><hr>
-            <textarea id="flight" name="flight"placeholder="Share your flight experience and details" rows="2" cols="50"></textarea><hr>
-            <textarea id="visa" name="visa"placeholder="visa if required" rows="2" cols="50"></textarea><hr>
-            <br>
-            <button id="Upload" name="Button" value="Upload">Upload</button>
-          </div>
         </form>
+        </center>
 
-        </div>
-      </div>
-      </div>
-    </div>
   </div>
+
+
   </body>
 </html>

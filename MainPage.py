@@ -45,6 +45,10 @@ class MainPage(webapp2.RequestHandler):
         Name = self.request.get('user_name')
         Question = self.request.get('hint_question')
         Answer = self.request.get('hint_answer')
+        Gender = self.request.get('Gender')
+        Contact_number = self.request.get('user_contact_number')
+        Address = self.request.get('Address')
+        Birth_Date = self.request.get('date_of_birth')
         Check = userData.query(userData.email_address == Email).fetch()
 
         if len(Check) == 0:
@@ -54,6 +58,10 @@ class MainPage(webapp2.RequestHandler):
             DBConnect.user_name = Name
             DBConnect.hint_question = Question
             DBConnect.hint_answer = Answer
+            DBConnect.Address = Address
+            DBConnect.Gender = Gender
+            DBConnect.user_contact_number = Contact_number
+            DBConnect.date_of_birth = Birth_Date
             DBConnect.put()
             self.redirect('/MainPage')
         else:

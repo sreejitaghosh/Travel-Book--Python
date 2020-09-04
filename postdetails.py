@@ -23,7 +23,10 @@ class postdetails(blobstore_handlers.BlobstoreUploadHandler):
         if (button == "Logout"):
             self.redirect('/')
 
+        Email = self.request.get('email_address')
+
         template_values = {
+            'email_address' : Email,
         }
 
         template = JINJA_ENVIRONMENT.get_template('postdetails.html')

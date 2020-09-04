@@ -106,58 +106,74 @@
       }
     }
 
-    #map {
-        width: 100%;
-        height: 300px;
-        background-color: grey;
+    .first {
+      float:left;
+      margin-left: 500px;
+    }
+    .second {
+      float:right;
+      margin-right: 500px;
     }
 
   </style>
   </head>
-  <script>
-    function initMap() {
-      var uluru = {lat: 53.338420, lng: -6.242200};
-      var map = new google.maps.Map(
-          document.getElementById('map'), {zoom: 4, center: uluru});
-      var marker = new google.maps.Marker({position: uluru, map: map});
-    }
-  </script>
-  <script defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCj4ZJWsTnO-t6tuiXxPlJjvsQKyECdf00&callback=initMap">
-  </script>
   <body>
-
-
    <div class="header">
-    <h1>Travel Book</h1>
+      <h1><a href="/Timeline?email_address={{ email_address }}">Travel Book</a></h1>
   </div>
 
   <div class="topnav">
     <a href="/Timeline?email_address={{ email_address }}">&nbsp;Home</a>
-    <form class="navbar-form navbar-right" method="" action="/search">
-      <div class="input-group">
-        <input type="text" class="form-control" placeholder="Search" name="search">
-        <div class="input-group-btn">
-          <button class="btn btn-default" type="submit">
-            <li class="glyphicon glyphicon-search"></li>
-          </button>
-        </div>
-      </div>
-    </form>
     <a href="#">Message</a>
     <a href='/' style="float:right" name="button" id="Logout" value="Logout">Logout</a>
     <a href='/' style="float:right">Setting</a>
   </div>
   <div class="row">
     <center>
+      <form class="navbar-form navbar-right" method="post" action="/search">
+        <input type="hidden" name="email_address" value="{{ email_address }}" />
+        <div class="input-group">
+          <div class = first><input type="text"class="form-control" name="from_location" id="from_location" placeholder="From" required></div>
+          <div class = second><input type="text"class="form-control" name="to_location" id="to_location" placeholder="To" required></div>
+          <div class="input-group-btn" margin-left="400px">
+            <button class="btn btn-default" type="submit">
+              <li class="glyphicon glyphicon-search"></li>
+            </button>
+          </div>
+        </div>
+      </form>
+
       <div class="card">
-        {% for value in Result %}
-      <a href="/newUsers?email_address={{ value }}&email_address={{ email_address }}">
-        User: {{ value }}
-      </a>
+        <table style="width:100%">
+        {% for value in Result_email %}
+      <tr>
+        <th>User:</th>
+      </tr>
+      <tr>
+        <td><a href="/newUsers?email_address={{ email_address }}&newEmail={{ value }}"> {{ value }}</a></td>
+      </tr>
       <br>
       {% endfor %}
         <br>
+        {% for value in Result_to_location %}
+        <th>
+          <tr>
+            Location:
+          </tr>
+        </th>
+      <tr>
+        <td><a href="/newUsers?email_address={{ value }}">{{ value }}</a>
+        </td>
+      </tr>
+      <br>
+      {% endfor %}
+    </table>
+        <br>
+      </div>
+      <hr>
+      <hr>
+      <div class="card">
+
       </div>
     </center>
   </div>

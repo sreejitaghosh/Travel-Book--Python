@@ -139,15 +139,15 @@
 
   /* Set a style for the submit/register button */
   .registerbtn {
-    background-color: #4CAF50;
-    color: white;
-    padding: 16px 20px;
-    margin: 8px 0;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-    opacity: 0.9;
-  }
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
 
   .registerbtn:hover {
     opacity:1;
@@ -234,8 +234,18 @@
           <label for="name"><b>Name</b></label>
           <input type="text" placeholder="abcd" name="user_name" id="user_name" required><hr>
 
+          <label for="Gender"><b>Gender</b></label>
+          <select name="Gender" id="Gender" required>
+            <option value="select">Select</option>
+            <option value="Female" required>Female</option>
+            <option value="Male" required>Male</option>
+          </select><hr>
+
+          <label for="dob"><b>Date of Birth</b></label>
+          <input type="date" placeholder="01/01/2020" name="date_of_birth" id="date_of_birth" required><hr>
+
           <label for="email"><b>Email</b></label>
-          <input type="text" placeholder="sample@exapmle.com" name="email_address" id="email_address" required><hr>
+          <input type="text" placeholder="sample@example.com" name="email_address" id="email_address" required><hr>
 
           <label for="psw"><b>Password</b></label>
           <input type="password" placeholder="Enter Password" name="user_password" id="user_password" required><hr>
@@ -243,8 +253,14 @@
           <label for="psw-repeat"><b>Repeat Password</b></label>
           <input type="password" placeholder="Repeat Password" name="user_password_repeat" id="user_password_repeat" required><hr>
 
+          <label for="user_contact_number"><b>Contact Number</b></label>
+          <input type="text" placeholder="+353-*****123" name="user_contact_number" id="user_contact_number" required><hr>
+
+          <label for="Address"><b>Address</b></label>
+          <input type="text" placeholder="" name="Address" id="Address" required><hr>
+
           <label for="hint_question"><b>Hint Question</b></label>
-          <select name="question" id="question" required>
+          <select name="hint_question" id="hint_question" required>
             <option value="select">Select</option>
             <option value="whats your favorite book" required>Whats your favorite book</option>
             <option value="Mother Maidan's Name" required>Mother Maidan's Name</option>
@@ -254,14 +270,11 @@
           </select><hr>
 
           <label for="answer"><b>Answer</b></label>
-          <input type="text" placeholder="Answer" name="answer" id="answer" required><hr>
+          <input type="text" placeholder="Answer" name="hint_answer" id="hint_answer" required><hr>
 
           <hr>
           <p>By creating an account you agree to our <a href="#">Terms & Privacy</a></p>
-
-          <div class="registerbtn">
-            <button type="submit" class="registerbtn">Register</button>
-          </div>
+          <button type="submit" class="registerbtn">Register</button>
          </div>
         </form>
         </div>

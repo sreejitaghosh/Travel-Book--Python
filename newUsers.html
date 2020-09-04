@@ -157,21 +157,21 @@
           <tr>
             <td>Other User: {{ newEmail }}</td>
             <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-            <td><a href="/follower?email_address={{ newEmail }}">Follower (<b><u>{{ userfollower }}</u></b>)</a></td>
+            <td><a href="/follower?newUsersEmail={{ new_Email }}">Follower (<b><u>{{ userfollower }}</u></b>)</a></td>
             <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-            <td><a href="/following?email_address={{ newEmail }}">Following (<b><u>{{ userfollowing }}</u></b>)</a></td>
+            <td><a href="/following?newUsersEmail={{ new_Email }}">Following (<b><u>{{ userfollowing }}</u></b>)</a></td>
             <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
             <td>
             {% if followDecission == 'False' %}
-              <form action='/newUsers?newEmail={{ new_Email }}&oldEmail={{ old_Email }}' method='post'>
+              <form action='/newUsers?newUsersEmail={{ newEmail }}&oldUsersEmail={{ oldUsersEmail }}' method='post'>
                 <input type="hidden" name="oldEmail" value="{{ oldEmail }}" />
                 <input type="hidden" name="newEmail" value="{{ newEmail }}" />
               <input type="submit" name="submit" value="Follow">
             </form>
             {% elif followDecission == 'True' %}
-              <form action='/newUsers?newEmail={{ new_Email }}&oldEmail={{ old_Email }}' method='post'>
-                <input type="hidden" name="oldEmail" value="{{ oldEmail }}" />
-                <input type="hidden" name="newEmail" value="{{ newEmail }}" />
+              <form action='/newUsers?newUsersEmail={{ newEmail }}&oldUsersEmail={{ oldUsersEmail }}' method='post'>
+                <input type="hidden" name="oldUsersEmail" value="{{ oldUsersEmail }}" />
+                <input type="hidden" name="newUsersEmail" value="{{ newUsersEmail }}" />
               <input type="submit" name="submit" value="Unfollow">
             </form>
             {% endif %}
