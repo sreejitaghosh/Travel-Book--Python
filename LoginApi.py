@@ -3,7 +3,7 @@ import json
 from google.appengine.ext import ndb
 from userData import userData
 
-class RegistrationApi(webapp2.RequestHandler):
+class LoginApi(webapp2.RequestHandler):
     def get(self):
         self.response.headers['Content-Type'] = 'text/html'
         self.redirect('/')
@@ -24,8 +24,8 @@ class RegistrationApi(webapp2.RequestHandler):
             else:
                 Data['status'] = "UserNotRegistered"
                 self.response.write(json.dumps(Data))
-        
+
 
 app = webapp2.WSGIApplication([
-    ('/RegistrationApi',RegistrationApi),
+    ('/LoginApi',LoginApi),
 ], debug=True)

@@ -79,8 +79,8 @@ class search(webapp2.RequestHandler):
                 if i.to_location[j].lower().find(to_location.lower()) != -1:
                     User_EmailAddress.append(i.email_address)
                     Result_to_location.append(i.to_location[j])
+                    self.response.write(User_EmailAddress)
         self.response.write("User_EmailAddress")
-        self.response.write(User_EmailAddress)
         self.response.write("<br>")
 
         Raw_Data1 = timelinepost.query()

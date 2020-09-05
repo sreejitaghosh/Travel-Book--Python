@@ -23,6 +23,7 @@ from userUpdate import userUpdate
 from knn import knn
 
 from RegistrationApi import RegistrationApi
+from LoginApi import LoginApi
 
 JINJA_ENVIRONMENT = jinja2.Environment(loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),extensions=['jinja2.ext.autoescape'],autoescape=True)
 
@@ -130,4 +131,5 @@ app = webapp2.WSGIApplication([
     ('/forgot_password_Change',forgot_password_Change),
     ('/userUpdate',userUpdate),
     ('/knn',knn),
+    ('/LoginApi',LoginApi),
 ], debug=True)

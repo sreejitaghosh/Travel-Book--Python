@@ -144,36 +144,19 @@
       </form>
 
       <div class="card">
-        <table style="width:100%">
         {% for value in Result_email %}
-      <tr>
-        <th>User:</th>
-      </tr>
-      <tr>
-        <td><a href="/newUsers?email_address={{ email_address }}&newEmail={{ value }}"> {{ value }}</a></td>
-      </tr>
+          User:<a href="/newUsers?email_address={{ email_address }}&newEmail={{ value }}"> {{ value }}</a>
       <br>
       {% endfor %}
-        <br>
-        {% for value in Result_to_location %}
-        <th>
-          <tr>
-            Location:
-          </tr>
-        </th>
-      <tr>
-        <td><a href="/newUsers?email_address={{ value }}">{{ value }}</a>
-        </td>
-      </tr>
-      <br>
-      {% endfor %}
-    </table>
-        <br>
       </div>
       <hr>
       <hr>
       <div class="card">
+        {% for value in Result_to_location %}
+            Location:<a href="/newUsers?email_address={{ value }}">{{ value }}</a>
 
+      <br>
+      {% endfor %}
       </div>
     </center>
   </div>
