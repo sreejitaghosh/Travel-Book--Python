@@ -29,6 +29,10 @@ class RegistrationApi(webapp2.RequestHandler):
                 DBConnect.user_name = Name
                 DBConnect.hint_question = Question
                 DBConnect.hint_answer = Answer
+                DBConnect.Address = Address
+                DBConnect.Gender = Gender
+                DBConnect.user_contact_number = Contact_number
+                DBConnect.date_of_birth = Birth_Date
                 DBConnect.put()
 
                 Data['status'] = "UserRegistered"

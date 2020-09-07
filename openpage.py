@@ -24,6 +24,7 @@ from knn import knn
 
 from RegistrationApi import RegistrationApi
 from LoginApi import LoginApi
+from TimelineApi import TimelineApi
 
 JINJA_ENVIRONMENT = jinja2.Environment(loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),extensions=['jinja2.ext.autoescape'],autoescape=True)
 
@@ -132,4 +133,5 @@ app = webapp2.WSGIApplication([
     ('/userUpdate',userUpdate),
     ('/knn',knn),
     ('/LoginApi',LoginApi),
+    ('/TimelineApi',TimelineApi),
 ], debug=True)
