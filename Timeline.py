@@ -37,9 +37,6 @@ class Timeline(blobstore_handlers.BlobstoreUploadHandler):
         upload_url = blobstore.create_upload_url('/Timeline')
         userfollower = 0
         userfollowing = 0
-        Comments = []
-        Commenting_User = []
-        NumberOfComments = []
         timeline_Post_Image_Key = []
         userlogin = self.request.get('email_address')
         Name = self.request.get('user_name')
@@ -87,8 +84,10 @@ class Timeline(blobstore_handlers.BlobstoreUploadHandler):
             userfollowing = len(collect.following)
 
         # For comments
-        comments_Data = []
+        Comments = []
+        Commenting_User = []
         NumberOfComments = []
+        comments_Data = []
         collection_key1 = timelinepost.query().fetch()
         if collection_key1 != []:
             for i in collection_key1:
@@ -100,7 +99,7 @@ class Timeline(blobstore_handlers.BlobstoreUploadHandler):
                         NumberOfComments.append(len(Comments))
                     else:
                         comments_Data.append("No Comments yet.")
-                        NumberOfComments.append(1)
+                        NumberOfComments.append(0)
         self.response.write(collection_key)
         self.response.write(comments_Data)
         self.response.write(NumberOfComments)
@@ -122,6 +121,8 @@ class Timeline(blobstore_handlers.BlobstoreUploadHandler):
             'userfollowing': userfollowing,
             'timeline_Post_Image_Key' : timeline_Post_Image_Key,
             'comments_Data' : comments_Data,
+            'NumberOfComments' : NumberOfComments,
+            'Commenting_User' : Commenting_User,
         }
 
         template = JINJA_ENVIRONMENT.get_template('Timeline.html')
@@ -202,6 +203,18 @@ class Timeline(blobstore_handlers.BlobstoreUploadHandler):
 
         collection_key.put()
         self.redirect('/Timeline?email_address='+Email)
+
+        #comments
+        commentBtn = self.request.get('submitButton')
+        if commentBtn == "Select":
+            FirstUserName = self.request.get('FirstUserName')
+            FirstUserName = FirstUserName.lower()
+            DB_Ref = userData.query(userData.user_name == FirstUserName).get()
+            if DB_Ref == None:
+                DB_Ref = ndb.Key('userData',Email).get()
+                DB_Ref.user_name = FirstUserName
+                DB_Ref.put()
+                self.redirect("/Timeline?email_address="+Email)
 
 app = webapp2.WSGIApplication([
     ('/Timeline',Timeline),

@@ -13,7 +13,7 @@ JINJA_ENVIRONMENT = jinja2.Environment(
     extensions=['jinja2.ext.autoescape'],
     autoescape=True)
 
-class following(webapp2.RequestHandler):
+class followingApi(webapp2.RequestHandler):
     def get(self):
         self.response.headers['Content-Type'] = 'text/html'
 
@@ -21,15 +21,11 @@ class following(webapp2.RequestHandler):
         userfollowing = 0
         newfollower = ""
         Email = self.request.get('email_address')
-        otherUser = self.request.get('newUsersEmail')
 
-        if(otherUser == ""):
-            collect = ndb.Key('followerfollowing',Email).get()
-        else:
-            collect = ndb.Key('followerfollowing',otherUser).get()
+        collect = ndb.Key('followerfollowing',Email).get()
         if collect != None:
             if collect.following != None:
-                newfollower = collect.following
+                newfollower = collect.follower
             else:
                 newfollower = []
         else:
@@ -47,5 +43,5 @@ class following(webapp2.RequestHandler):
         self.response.write(template.render(template_values))
 
 app = webapp2.WSGIApplication([
-    ('/following',following),
+    ('/followingApi',followingApi),
 ], debug=True)

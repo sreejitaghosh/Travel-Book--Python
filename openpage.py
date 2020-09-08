@@ -25,6 +25,10 @@ from knn import knn
 from RegistrationApi import RegistrationApi
 from LoginApi import LoginApi
 from TimelineApi import TimelineApi
+from followerApi import followerApi
+from followingApi import followingApi
+from searchApi import searchApi
+
 
 JINJA_ENVIRONMENT = jinja2.Environment(loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),extensions=['jinja2.ext.autoescape'],autoescape=True)
 

@@ -43,6 +43,7 @@ class search(webapp2.RequestHandler):
 
         #Location based
         Result_to_location = []
+        Raw_Data = timelinepost.query().fetch()
         for i in range(0,len(Raw_Data)):
             for j in range(0,len(Raw_Data[i].to_location)):
                 if(Raw_Data[i].to_location[j].lower() == Search_KeyWord):
@@ -69,45 +70,41 @@ class search(webapp2.RequestHandler):
         email_address = self.request.get('email_address')
         from_location =self.request.get('from_location')
         to_location = self.request.get('to_location')
-        Search_KeyWord = self.request.get('search').lower()
-        User_EmailAddress = []
         Result_to_location = []
         Result_email = []
+
         All_Raw_Data = timelinepost.query().fetch()
         for i in All_Raw_Data:
             for j in range(0,len(i.to_location)):
                 if i.to_location[j].lower().find(to_location.lower()) != -1:
-                    User_EmailAddress.append(i.email_address)
+                    Result_email.append(i.email_address)
                     Result_to_location.append(i.to_location[j])
-                    self.response.write(User_EmailAddress)
-        self.response.write("User_EmailAddress")
-        self.response.write("<br>")
 
-        Raw_Data1 = timelinepost.query()
-        Found = Raw_Data1.filter(userData.email_address == Search_KeyWord).fetch()
-        if Found == []:
-            Raw_Data1 = Raw_Data1.fetch()
-            for i in range(0,len(Raw_Data1)):
-                if Raw_Data1[i].email_address.find(Search_KeyWord) != -1:
-                    Result_email.append(Raw_Data1[i].email_address)
-        else:
-            Result_email.append(Found[0].email_address)
+        # Raw_Data1 = timelinepost.query()
+        # Found = Raw_Data1.filter(userData.email_address == Search_KeyWord).fetch()
+        # if Found == []:
+        #     Raw_Data1 = Raw_Data1.fetch()
+        #     for i in range(0,len(Raw_Data1)):
+        #         if Raw_Data1[i].email_address.find(Search_KeyWord) != -1:
+        #             Result_email.append(Raw_Data1[i].email_address)
+        # else:
+        #     Result_email.append(Found[0].email_address)
 
 
-        if(Search_KeyWord != ""):
-            #Location based
-            Raw_Data = timelinepost.query().fetch()
-            for i in range(0,len(Raw_Data)):
-                for j in range(0,len(Raw_Data[i].to_location)):
-                    if(Raw_Data[i].to_location[j].lower() == Search_KeyWord):
-                        Result_to_location.append(Raw_Data[i].to_location[j])
-                        Result_email.append(Raw_Data[i].email_address)
-                    elif Raw_Data[i].to_location[j].lower().find(Search_KeyWord) != -1:
-                        Result_to_location.append(Raw_Data[i].to_location[j])
-                        Result_email.append(Raw_Data[i].email_address)
-            self.response.write(Result_to_location)
-            self.response.write("<br>")
-            self.response.write(Result_email)
+        # if(Search_KeyWord != ""):
+        #     #Location based
+        #     Raw_Data = timelinepost.query().fetch()
+        #     for i in range(0,len(Raw_Data)):
+        #         for j in range(0,len(Raw_Data[i].to_location)):
+        #             if(Raw_Data[i].to_location[j].lower() == Search_KeyWord):
+        #                 Result_to_location.append(Raw_Data[i].to_location[j])
+        #                 Result_email.append(Raw_Data[i].email_address)
+        #             elif Raw_Data[i].to_location[j].lower().find(Search_KeyWord) != -1:
+        #                 Result_to_location.append(Raw_Data[i].to_location[j])
+        #                 Result_email.append(Raw_Data[i].email_address)
+        #     self.response.write(Result_to_location)
+        #     self.response.write("<br>")
+        #     self.response.write(Result_email)
 
         template_values = {
              'Result_email' : Result_email,

@@ -134,8 +134,8 @@
 
   <div class="topnav">
     <a href="#" style="color:white" class="button btn" data-toggle="modal" data-target="#posts">Post</a>
-    <a href="/follower?email_address={{ email_address }}"><b><u>{{ userfollower }}</u></b>&nbsp;Follower</a>
-    <a href="/following?email_address={{ email_address }}"><b><u>{{ userfollowing }}</u></b>&nbsp;Following</a>
+    <a href="/follower?email_address={{ oldUsersEmail }}"><b><u>{{ userfollower }}</u></b>&nbsp;Follower</a>
+    <a href="/following?email_address={{ oldUsersEmail }}"><b><u>{{ userfollowing }}</u></b>&nbsp;Following</a>
     <form class="navbar-form navbar-right" method="" action="/search">
       <div class="input-group">
         <input type="text" class="form-control" placeholder="Search" name="search">
@@ -157,21 +157,21 @@
           <tr>
             <td>Other User: {{ newEmail }}</td>
             <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-            <td><a href="/follower?newUsersEmail={{ new_Email }}">Follower (<b><u>{{ userfollower }}</u></b>)</a></td>
+            <td><a href="/follower?email_address={{ oldUsersEmail }}&newUsersEmail={{ newEmail }}">Follower (<b><u>{{ userfollower }}</u></b>)</a></td>
             <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-            <td><a href="/following?newUsersEmail={{ new_Email }}">Following (<b><u>{{ userfollowing }}</u></b>)</a></td>
+            <td><a href="/following?email_address={{ oldUsersEmail }}&newUsersEmail={{ newEmail }}">Following (<b><u>{{ userfollowing }}</u></b>)</a></td>
             <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
             <td>
             {% if followDecission == 'False' %}
-              <form action='/newUsers?newUsersEmail={{ newEmail }}&oldUsersEmail={{ oldUsersEmail }}' method='post'>
-                <input type="hidden" name="oldEmail" value="{{ oldEmail }}" />
-                <input type="hidden" name="newEmail" value="{{ newEmail }}" />
+              <form action='/newUsers' method='post'>
+                <input type="hidden" name="oldUsersEmail" value="{{ oldUsersEmail }}" />
+                <input type="hidden" name="newUsersEmail" value="{{ newEmail }}" />
               <input type="submit" name="submit" value="Follow">
             </form>
             {% elif followDecission == 'True' %}
-              <form action='/newUsers?newUsersEmail={{ newEmail }}&oldUsersEmail={{ oldUsersEmail }}' method='post'>
+              <form action='/newUsers' method='post'>
                 <input type="hidden" name="oldUsersEmail" value="{{ oldUsersEmail }}" />
-                <input type="hidden" name="newUsersEmail" value="{{ newUsersEmail }}" />
+                <input type="hidden" name="newUsersEmail" value="{{ newEmail }}" />
               <input type="submit" name="submit" value="Unfollow">
             </form>
             {% endif %}
@@ -180,11 +180,19 @@
             </table>
             <br>
             {% for j in range(0,length) %}
-              <img src="{{ collection[j] }}" style="width:200px;height:300px;">
-            <br>
-            Caption (if available) : {{ Caption[j] }}
-            <hr>
-          {% endfor%}
+            <h4><i style="font-size:24px;color:red" class="fa">&#xf041;</i> Location :<a href="/postdetails?email_address={{ email_address }}">{{ to_location[j] }}</a></h4>
+            <h4>Caption :{{ Caption[j] }}</h4>
+              <img src="{{ collection[j] }}" style="width:1000px;height:500px;">
+
+              <h4>Experience :{{ experience[j] }}</h4>
+              <h4>Hotel :{{ hotel[j] }}</h4>
+              <h4>Flight :{{ flight[j] }}</h4>
+              <h4>Visa :{{ visa[j] }}</h4>
+              <br>
+              <hr>
+              <hr>
+            {% endfor %}
+            
         <br>
       </div>
     </center>

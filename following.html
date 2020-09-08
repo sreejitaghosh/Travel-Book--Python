@@ -135,16 +135,6 @@
   <div class="topnav">
     <a href="/follower?email_address={{ email_address }}"><b><u>{{ userfollower }}</u></b>&nbsp;Follower</a>
     <a href="/following?email_address={{ email_address }}"><b><u>{{ userfollowing }}</u></b>&nbsp;Following</a>
-    <form class="navbar-form navbar-right" method="" action="/search">
-      <div class="input-group">
-        <input type="text" class="form-control" placeholder="Search" name="search">
-        <div class="input-group-btn">
-          <button class="btn btn-default" type="submit">
-            <li class="glyphicon glyphicon-search"></li>
-          </button>
-        </div>
-      </div>
-    </form>
     <a href="#">Message</a>
     <a href='/' style="float:right" name="button" id="Logout" value="Logout">Logout</a>
     <a href='/' style="float:right">Setting</a>
@@ -154,7 +144,7 @@
       <div class="card">
         {% if newfollower %}
           {% for i in newfollower %}
-            <a href="/newUsers?email_address={{ i }}&email_address={{ email_address }}">{{ i }}</a>
+            <a href="/newUsers?email_address={{ i }}&newEmail={{ email_address }}">{{ i }}</a>
             <br>
           {% endfor %}
       {% else %}

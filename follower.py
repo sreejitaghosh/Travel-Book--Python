@@ -21,8 +21,12 @@ class follower(webapp2.RequestHandler):
         userfollowing = 0
         newfollower = ""
         Email = self.request.get('email_address')
+        otherUser = self.request.get('newUsersEmail')
 
-        collect = ndb.Key('followerfollowing',Email).get()
+        if(otherUser == ""):
+            collect = ndb.Key('followerfollowing',Email).get()
+        else:
+            collect = ndb.Key('followerfollowing',otherUser).get()
         if collect != None:
             if collect.following != None:
                 newfollower = collect.follower
