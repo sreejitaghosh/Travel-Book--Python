@@ -29,6 +29,7 @@ from TimelineApi import TimelineApi
 from followerApi import followerApi
 from followingApi import followingApi
 from searchApi import searchApi
+from newUserApi import newUserApi
 
 
 JINJA_ENVIRONMENT = jinja2.Environment(loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),extensions=['jinja2.ext.autoescape'],autoescape=True)
@@ -142,4 +143,5 @@ app = webapp2.WSGIApplication([
     ('/searchApi',searchApi),
     ('/followerApi',followerApi),
     ('/followerApi',followingApi),
+    ('/newUserApi',newUserApi),
 ], debug=True)
