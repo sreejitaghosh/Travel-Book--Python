@@ -90,26 +90,8 @@ class Timeline(blobstore_handlers.BlobstoreUploadHandler):
                     userfollowing = len(collect.following)
             else:
                 self.redirect("/MainPage")
-        # # For comments
-        # Comments = []
-        # Commenting_User = []
-        # NumberOfComments = []
-        # comments_Data = []
-        # collection_key1 = timelinepost.query().fetch()
-        # if collection_key1 != []:
-        #     for i in collection_key1:
-        #         for j in range(0,len(i.photo_url)):
-        #             CommentKey = Email+""+i.to_location[j]
-        #             Comments = ndb.Key('CommentDB',CommentKey).get()
-        #             if(Comments != None):
-        #                 comments_Data.append(Comments)
-        #                 NumberOfComments.append(len(Comments))
-        #             else:
-        #                 comments_Data.append("No Comments yet.")
-        #                 NumberOfComments.append(0)
-        # self.response.write(collection_key)
-        # self.response.write(comments_Data)
-        # self.response.write(NumberOfComments)
+
+
 
         template_values = {
             'userlogin' : userlogin,
@@ -209,18 +191,7 @@ class Timeline(blobstore_handlers.BlobstoreUploadHandler):
         self.redirect('/Timeline?email_address='+Email)
 
 
-                #comments
 
-        # if commentBtn == "Comment":
-        #     DB_ref = ndb.Key('CommentDB',Email).get()
-        #     CommentKey = Email+""+i.to_location[j]
-        #     Comments = ndb.Key('CommentDB',CommentKey).get()
-        #     if comments_Data == None:
-        #         comments_Data = CommentsDB(id=str(CommentKey))
-        #         comments_Data.commenting_User.append(email_address.Email)
-        #         comments_Data.comment.append(CommentBox)
-        #         comments_Data.put()
-        #     self.redirect("/Timeline?email_address="+Email)
 
 
 

@@ -179,7 +179,7 @@
             </table>
             <br>
             {% for j in range(0,length) %}
-            <h4><i style="font-size:24px;color:red" class="fa">&#xf041;</i> Location :<a href="/postdetails?email_address={{ email_address }}">{{ to_location[j] }}</a></h4>
+            <h4><i style="font-size:24px;color:red" class="fa">&#xf041;</i> Location : {{ to_location[j] }}</h4>
             <h4><i  style="color:blue">Caption : </i>{{ Caption[j] }}</h4>
               <img src="{{ collection[j] }}" style="width:1000px;height:500px;">
               <h4><i  style="color:blue">Experience : </i>{{ experience[j] }}</h4><hr>

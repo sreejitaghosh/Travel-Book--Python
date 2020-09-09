@@ -51,7 +51,7 @@ class openpage(webapp2.RequestHandler):
         length = 0
         SubLength = []
 
-        Name = self.request.get('user_name')
+        Name = []
         email_address = self.request.get('email_address')
         from_location =self.request.get('from_location')
 
@@ -59,6 +59,7 @@ class openpage(webapp2.RequestHandler):
         Search_KeyWord = self.request.get('search').lower()
         #email based
         Result_email = []
+
         Found = Raw_Data.filter(timelinepost.email_address == Search_KeyWord).fetch()
         if Found == []:
             Raw_Data = Raw_Data.fetch()
@@ -83,6 +84,7 @@ class openpage(webapp2.RequestHandler):
         if Email == "":
             collection_key = timelinepost.query().fetch()
             for i in range(0,len(collection_key)):
+                Name.append(collection_key[i].email_address)
                 collection.append(collection_key[i].photo_url)
                 Caption.append(collection_key[i].caption)
                 experience.append(collection_key[i].experience)
@@ -114,7 +116,7 @@ class openpage(webapp2.RequestHandler):
             'from_location': from_location,
             'to_location' : to_location,
             'length' : length,
-            'User': Name,
+            'Name': Name,
             'SubLength' : SubLength,
             'Result_to_location': Result_to_location,
             'email_address': email_address,

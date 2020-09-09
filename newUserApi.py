@@ -28,7 +28,7 @@ class newUserApi(webapp2.RequestHandler):
         oldUsersEmail = ""
 
         if(newUsersEmail != "" and email_address == newUsersEmail):
-            self.redirect("/Timeline?email_address="+email_address)
+            Data['ResponseStatus'] = "NewUserIsCurrentlyLoggedIn"
         elif(newUsersEmail != "" and email_address != ""):
             collection_key = ndb.Key('timelinepost',newUsersEmail).get()
             if collection_key != None:
@@ -45,6 +45,7 @@ class newUserApi(webapp2.RequestHandler):
                     i = i - 1
                 length = len(collection)
 
+                Data['ResponseStatus'] = "GivingNewUserData"
                 Data['photo_url'] = collection
                 Data['caption'] = Caption
                 Data['experience'] = experience
@@ -53,7 +54,13 @@ class newUserApi(webapp2.RequestHandler):
                 Data['visa'] = visa
                 Data['from_location'] = from_location
                 Data['to_location'] = to_location
-                self.response.write(json.dumps(Data))
+
+        elif(email_address != "" and newUsersEmail == ""):
+            Data['ResponseStatus'] = "newUserEmpty"
+        else:
+            Data['ResponseStatus'] = "NotHandled"
+
+        self.response.write(json.dumps(Data))
 
 app = webapp2.WSGIApplication([
     ('/newUserApi',newUserApi),

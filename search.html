@@ -151,7 +151,7 @@
       <hr>
       <div class="card">
         {% for value in range(0,count) %}
-            Location:<a href="/newUsers?email_address={{ email_address }}">{{ Result_to_location[value] }}</a>
+            Location:<a href="/newUsers?email_address={{ email_address }}&newEmail={{ Result_email[value] }}">{{ Result_to_location[value] }}</a>
 
       <br>
       {% endfor %}

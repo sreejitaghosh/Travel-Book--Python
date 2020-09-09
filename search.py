@@ -62,9 +62,6 @@ class search(webapp2.RequestHandler):
                 elif Raw_Data[i].to_location[j].lower().find(Search_KeyWord) != -1:
                     Result_to_location.append(Raw_Data[i].to_location[j])
                     Result_email.append(Raw_Data[i].email_address)
-        self.response.write(Result_to_location)
-        self.response.write("<br>")
-        self.response.write(Result_email)
 
         count = len(Result_email)
 
