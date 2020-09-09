@@ -204,17 +204,18 @@ class Timeline(blobstore_handlers.BlobstoreUploadHandler):
         collection_key.put()
         self.redirect('/Timeline?email_address='+Email)
 
-        #comments
-        commentBtn = self.request.get('submitButton')
-        if commentBtn == "Select":
-            FirstUserName = self.request.get('FirstUserName')
-            FirstUserName = FirstUserName.lower()
-            DB_Ref = userData.query(userData.user_name == FirstUserName).get()
-            if DB_Ref == None:
-                DB_Ref = ndb.Key('userData',Email).get()
-                DB_Ref.user_name = FirstUserName
-                DB_Ref.put()
-                self.redirect("/Timeline?email_address="+Email)
+
+                #comments
+        if commentBtn == "Comment":
+            DB_ref = ndb.Key('CommentDB',Email).get()
+            CommentKey = Email+""+i.to_location[j]
+            Comments = ndb.Key('CommentDB',CommentKey).get()
+            if comments_Data == None:
+                comments_Data = CommentsDB(id=str(CommentKey))
+                comments_Data.commenting_User.append(email_address.Email)
+                comments_Data.comment.append(CommentBox)
+                comments_Data.put()
+            self.redirect("/Timeline?email_address="+Email)
 
 app = webapp2.WSGIApplication([
     ('/Timeline',Timeline),

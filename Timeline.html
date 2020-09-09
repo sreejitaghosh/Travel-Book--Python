@@ -214,20 +214,9 @@
     </div>
     </form>
 
-    <a href="#">Message</a>
-
+    <a href='/userUpdate?email_address={{ email_address }}'>Update Profile</a>
     <a href='/' style="float:right" name="button" id="Logout" value="Logout">Logout</a>
-    <li class="dropdown">
-    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Setting<span class="caret"></span></a>
-    <ul class="dropdown-content">
-    <li><a href='/userUpdate?email_address={{ email_address }}'>Update Profile</a></li>
-      <li><a href="#">Logout</a></li>
-    </ul>
-  </li>
-</li>
-  </div>
-
-
+    </div>
 
   <div class="row">
     <div class="leftcolumn">
@@ -237,16 +226,15 @@
         {% for j in range(0,k) %}
 
         <h4><i style="font-size:24px;color:red" class="fa">&#xf041;</i> Location :<a href="/postdetails?email_address={{ email_address }}">{{ to_location[j] }}</a></h4>
-        <h4>Caption :{{ Caption[j] }}</h4>
+        <h4><i  style="color:blue">Caption :</i>{{ Caption[j] }}</h4>
           <img src="{{ collection[j] }}" style="width:1000px;height:500px;">
 
-          <h4>Experience :{{ experience[j] }}</h4>
-          <h4>Hotel :{{ hotel[j] }}</h4>
-          <h4>Flight :{{ flight[j] }}</h4>
-          <h4>Visa :{{ visa[j] }}</h4>
-          <br>
+          <h4><i  style="color:blue">Experience :</i>{{ experience[j] }}</h4><hr>
+          <h4><i  style="color:blue">Hotel :</i>{{ hotel[j] }}</h4><hr>
+          <h4><i  style="color:blue">Flight :</i>{{ flight[j] }}</h4><hr>
+          <h4><i  style="color:blue">Visa:</i>{{ visa[j] }}</h4><hr>
           <form action="/Timeline?email_address={{ collection[l] }}" method="post">
-            <textarea class="form-control" name='CommentBox' placeholder="Start typing you comment here.." maxlength="200" /required></textarea>
+            <textarea class="form-control" name='CommentBox' placeholder="Start typing you comment here.."  /required></textarea>
             <input type="submit" class="btn btn-default" name="submitButton" value="Comment">
             <input type="reset" class="btn btn-default" value="Reset">
             {% for i in NumberOfComments %}
@@ -281,7 +269,6 @@
               {% endfor %}
               </div>
           </form>
-
           <hr>
           <hr>
         {% endfor %}
@@ -290,22 +277,10 @@
     </div>
     <div class="rightcolumn">
       <div class="card">
-        <h2>About Me</h2>
-      </div>
-      <div class="card">
         Google Map
         <div id="map"></div>
       </div>
-      <div class="card">
-        <h3>Follow Me</h3>
-      </div>
-    </div>
   </div>
-
-  <div class="footer">
-
-  </div>
-
   <div class="postscontainer">
   <div class="modal fade" id ="posts" role="dialog">
     <div class="modal-dialog">

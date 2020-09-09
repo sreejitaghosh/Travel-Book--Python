@@ -138,4 +138,7 @@ app = webapp2.WSGIApplication([
     ('/knn',knn),
     ('/LoginApi',LoginApi),
     ('/TimelineApi',TimelineApi),
+    ('/followerApi',followerApi),
+    ('/followingApi',followingApi),
+    ('/searchApi',searchApi),
 ], debug=True)
