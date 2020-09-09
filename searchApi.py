@@ -3,6 +3,7 @@ import json
 from google.appengine.ext import ndb
 from followerfollowing import followerfollowing
 from timelinepost import timelinepost
+<<<<<<< HEAD
 
 import json
 import urllib
@@ -11,6 +12,8 @@ from google.appengine.api import urlfetch
 from urllib import urlencode
 
 from Fetch_Distance import Fetch_Distance
+=======
+>>>>>>> 7360567e8115af13f6e1e1def5d77a4e786d6662
 
 
 class searchApi(webapp2.RequestHandler):
@@ -50,6 +53,7 @@ class searchApi(webapp2.RequestHandler):
                     Result_email.append(Raw_Data[i].email_address)
         else:
             Result_email.append(Found[0].email_address)
+<<<<<<< HEAD
 
         # Start of Custom made KNN.
         # Finding lat and long from location entered by user on search page.
@@ -75,6 +79,19 @@ class searchApi(webapp2.RequestHandler):
         count = len(Result_email)
 
 # End of Custom made KNN.
+=======
+
+        #Location based
+        Raw_Data = timelinepost.query().fetch()
+        for i in range(0,len(Raw_Data)):
+            for j in range(0,len(Raw_Data[i].to_location)):
+                if(Raw_Data[i].to_location[j].lower() == Search_KeyWord):
+                    Result_to_location.append(Raw_Data[i].to_location[j])
+                    Result_email.append(Raw_Data[i].email_address)
+                elif Raw_Data[i].to_location[j].lower().find(Search_KeyWord) != -1:
+                    Result_to_location.append(Raw_Data[i].to_location[j])
+                    Result_email.append(Raw_Data[i].email_address)
+>>>>>>> 7360567e8115af13f6e1e1def5d77a4e786d6662
 
         Data['Result_to_location'] = Result_to_location
         Data['Search_KeyWord'] = Search_KeyWord
