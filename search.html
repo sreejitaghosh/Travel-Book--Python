@@ -124,7 +124,6 @@
 
   <div class="topnav">
     <a href="/Timeline?email_address={{ email_address }}">&nbsp;Home</a>
-    <a href="#">Message</a>
     <a href='/' style="float:right" name="button" id="Logout" value="Logout">Logout</a>
     <a href='/' style="float:right">Setting</a>
   </div>
@@ -152,8 +151,8 @@
       <hr>
       <hr>
       <div class="card">
-        {% for value in Result_to_location %}
-            Location:<a href="/newUsers?email_address={{ value }}">{{ value }}</a>
+        {% for value in range(0,count) %}
+            Location:<a href="/newUsers?email_address={{ email_address }}">{{ Result_to_location[value] }}</a>
 
       <br>
       {% endfor %}

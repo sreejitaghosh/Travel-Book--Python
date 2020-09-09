@@ -116,21 +116,6 @@
       text-align: center;
     }
   }
-  /* Full-width input fields */
-  input[type=text], input[type=password] {
-    width: 100%;
-    padding: 15px;
-    margin: 5px 0 22px 0;
-    display: inline-block;
-    border: none;
-    background: #f1f1f1;
-  }
-
-  input[type=text]:focus, input[type=password]:focus {
-    background-color: #ddd;
-    outline: none;
-  }
-
   /* Overwrite default styles of hr */
   hr {
     border: 1px solid #f1f1f1;
@@ -192,14 +177,13 @@
 <body style="background:url(https://media.cntraveler.com/photos/577d3357a08a7cb205515858/master/w_2048,h_1536,c_limit/california-beaches-03-huntington-beach-GettyImages-89571676.jpg) no-repeat center; background-size:cover">
   <h1 style="color: #D7E3EC; font-family:Georgia, serif; margin-left: 30px; margin-top: inherit"><i>Welcome</i></h1>
   <div class="container">
-  <form action="/Timeline?email_address={{ email_address }}" method="get">
-  <div class="row">
-
-    <h2 style="text-align:center">LogIn with</h2>
-      <input type="text" name="email_address" id="email_address" placeholder="sample@example.com" required>
-      <input type="password" name="user_password" id="user_password" placeholder="Password" required>
-      <input type="submit" name="Button" value="Login">
-  </div>
+  <form action="/Timeline" method="get">
+    <div class="row">
+        <h2 style="text-align:center">LogIn with</h2>
+        <input type="text" name="email_address" id="email_address" placeholder="sample@example.com" required>
+        <input type="password" name="Password" id="Password" placeholder="Password" required>
+        <input type="submit" name="Button" value="Login">
+    </div>
   </form>
 
   </div>

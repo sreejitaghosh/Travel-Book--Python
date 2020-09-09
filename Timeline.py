@@ -44,9 +44,11 @@ class Timeline(blobstore_handlers.BlobstoreUploadHandler):
 
         #For LogIn
         Email = self.request.get('email_address')
+        if(Email == ""):
+            self.redirect('/')
         Button = self.request.get('Button')
         if(Button == "Login"):
-            Password = self.request.get('user_password')
+            Password = self.request.get('Password')
             Check_login = ndb.Key('userData',Email).get()
             if Check_login != None:
                 if (Check_login.user_password == Password):
@@ -54,55 +56,60 @@ class Timeline(blobstore_handlers.BlobstoreUploadHandler):
                 else:
                     self.redirect('/MainPage')
 
-        # For logout Button
-        button = ""
-        button = self.request.get('button')
-        if (button == "Logout"):
-            self.redirect('/')
+                # For logout Button
+                button = ""
+                button = self.request.get('button')
+                if (button == "Logout"):
+                    self.redirect('/')
 
 
-        #For displaying images
-        collection_key = ndb.Key('timelinepost',Email).get()
-        if collection_key != None:
-            k = len(collection_key.caption) - 1
-            while k > - 1:
-                collection.append(collection_key.photo_url[k])
-                Caption.append(collection_key.caption[k])
-                experience.append(collection_key.experience[k])
-                hotel.append(collection_key.hotel[k])
-                flight.append(collection_key.flight[k])
-                visa.append(collection_key.visa[k])
-                from_location.append(collection_key.from_location[k])
-                to_location.append(collection_key.to_location[k])
-                k = k -1
-            length = len(collection)
-
-        # for follower and Following
-        collect = ndb.Key('followerfollowing',Email).get()
-        if collect != None:
-            userfollower = len(collect.follower)
-            userfollowing = len(collect.following)
-
-        # For comments
-        Comments = []
-        Commenting_User = []
-        NumberOfComments = []
-        comments_Data = []
-        collection_key1 = timelinepost.query().fetch()
-        if collection_key1 != []:
-            for i in collection_key1:
-                for j in range(0,len(i.photo_url)):
-                    CommentKey = Email+""+i.to_location[j]
-                    Comments = ndb.Key('CommentDB',CommentKey).get()
-                    if(Comments != None):
-                        comments_Data.append(Comments)
-                        NumberOfComments.append(len(Comments))
-                    else:
-                        comments_Data.append("No Comments yet.")
-                        NumberOfComments.append(0)
-        self.response.write(collection_key)
-        self.response.write(comments_Data)
-        self.response.write(NumberOfComments)
+        if(Email == ""):
+            self.redirect("/MainPage")
+        else:
+            Check_login = ndb.Key('userData',Email).get()
+            if(Check_login != None):
+                #For displaying images
+                collection_key = ndb.Key('timelinepost',Email).get()
+                if collection_key != None:
+                    k = len(collection_key.caption) - 1
+                    while k > - 1:
+                        collection.append(collection_key.photo_url[k])
+                        Caption.append(collection_key.caption[k])
+                        experience.append(collection_key.experience[k])
+                        hotel.append(collection_key.hotel[k])
+                        flight.append(collection_key.flight[k])
+                        visa.append(collection_key.visa[k])
+                        from_location.append(collection_key.from_location[k])
+                        to_location.append(collection_key.to_location[k])
+                        k = k -1
+                    length = len(collection)
+                # for follower and Following
+                collect = ndb.Key('followerfollowing',Email).get()
+                if collect != None:
+                    userfollower = len(collect.follower)
+                    userfollowing = len(collect.following)
+            else:
+                self.redirect("/MainPage")
+        # # For comments
+        # Comments = []
+        # Commenting_User = []
+        # NumberOfComments = []
+        # comments_Data = []
+        # collection_key1 = timelinepost.query().fetch()
+        # if collection_key1 != []:
+        #     for i in collection_key1:
+        #         for j in range(0,len(i.photo_url)):
+        #             CommentKey = Email+""+i.to_location[j]
+        #             Comments = ndb.Key('CommentDB',CommentKey).get()
+        #             if(Comments != None):
+        #                 comments_Data.append(Comments)
+        #                 NumberOfComments.append(len(Comments))
+        #             else:
+        #                 comments_Data.append("No Comments yet.")
+        #                 NumberOfComments.append(0)
+        # self.response.write(collection_key)
+        # self.response.write(comments_Data)
+        # self.response.write(NumberOfComments)
 
         template_values = {
             'userlogin' : userlogin,
@@ -120,9 +127,6 @@ class Timeline(blobstore_handlers.BlobstoreUploadHandler):
             'userfollower': userfollower,
             'userfollowing': userfollowing,
             'timeline_Post_Image_Key' : timeline_Post_Image_Key,
-            'comments_Data' : comments_Data,
-            'NumberOfComments' : NumberOfComments,
-            'Commenting_User' : Commenting_User,
         }
 
         template = JINJA_ENVIRONMENT.get_template('Timeline.html')
@@ -204,17 +208,18 @@ class Timeline(blobstore_handlers.BlobstoreUploadHandler):
         collection_key.put()
         self.redirect('/Timeline?email_address='+Email)
 
-        #comments
-        commentBtn = self.request.get('submitButton')
-        if commentBtn == "Select":
-            FirstUserName = self.request.get('FirstUserName')
-            FirstUserName = FirstUserName.lower()
-            DB_Ref = userData.query(userData.user_name == FirstUserName).get()
-            if DB_Ref == None:
-                DB_Ref = ndb.Key('userData',Email).get()
-                DB_Ref.user_name = FirstUserName
-                DB_Ref.put()
-                self.redirect("/Timeline?email_address="+Email)
+
+                #comments
+        # if commentBtn == "Comment":
+        #     DB_ref = ndb.Key('CommentDB',Email).get()
+        #     CommentKey = Email+""+i.to_location[j]
+        #     Comments = ndb.Key('CommentDB',CommentKey).get()
+        #     if comments_Data == None:
+        #         comments_Data = CommentsDB(id=str(CommentKey))
+        #         comments_Data.commenting_User.append(email_address.Email)
+        #         comments_Data.comment.append(CommentBox)
+        #         comments_Data.put()
+        #     self.redirect("/Timeline?email_address="+Email)
 
 app = webapp2.WSGIApplication([
     ('/Timeline',Timeline),

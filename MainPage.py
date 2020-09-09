@@ -18,19 +18,6 @@ class MainPage(webapp2.RequestHandler):
     def get(self):
         self.response.headers['Content-Type'] = 'text/html'
 
-        Button = ""
-        Button = self.request.get('Button')
-        if(Button == "Login"):
-            Email = self.request.get('email_address')
-            Password = self.request.get('user_password')
-            Check_login = ndb.Key('userData',Email).get()
-            if Check_login != None:
-                if (Check_login.user_password == Password):
-                    self.redirect('/Timeline?email_address='+Email)
-                else:
-                    self.redirect('/MainPage')
-
-
         template_values={
 
         }

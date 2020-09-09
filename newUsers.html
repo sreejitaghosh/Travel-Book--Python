@@ -4,6 +4,7 @@
    <meta charset="utf-8">
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
    <script defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"></script>
@@ -129,7 +130,7 @@
 
 
    <div class="header">
-    <h1>Travel Book</h1>
+    <h1><a href="/Timeline?email_address={{ oldUsersEmail }}">Travel Book</a></h1>
   </div>
 
   <div class="topnav">
@@ -146,9 +147,7 @@
         </div>
       </div>
     </form>
-    <a href="#">Message</a>
     <a href='/' style="float:right" name="button" id="Logout" value="Logout">Logout</a>
-    <a href='/' style="float:right">Setting</a>
   </div>
   <div class="row">
     <center>
@@ -181,18 +180,17 @@
             <br>
             {% for j in range(0,length) %}
             <h4><i style="font-size:24px;color:red" class="fa">&#xf041;</i> Location :<a href="/postdetails?email_address={{ email_address }}">{{ to_location[j] }}</a></h4>
-            <h4>Caption :{{ Caption[j] }}</h4>
+            <h4><i  style="color:blue">Caption : </i>{{ Caption[j] }}</h4>
               <img src="{{ collection[j] }}" style="width:1000px;height:500px;">
-
-              <h4>Experience :{{ experience[j] }}</h4>
-              <h4>Hotel :{{ hotel[j] }}</h4>
-              <h4>Flight :{{ flight[j] }}</h4>
-              <h4>Visa :{{ visa[j] }}</h4>
+              <h4><i  style="color:blue">Experience : </i>{{ experience[j] }}</h4><hr>
+              <h4><i  style="color:blue">Hotel : </i>{{ hotel[j] }}</h4><hr>
+              <h4><i  style="color:blue">Flight : </i>{{ flight[j] }}</h4><hr>
+              <h4><i  style="color:blue">Visa : </i>{{ visa[j] }}</h4><hr>
               <br>
               <hr>
               <hr>
             {% endfor %}
-            
+
         <br>
       </div>
     </center>

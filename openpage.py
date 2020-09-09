@@ -21,6 +21,7 @@ from search import search
 from newUsers import newUsers
 from userUpdate import userUpdate
 from knn import knn
+from Fetch_Distance import Fetch_Distance
 
 from RegistrationApi import RegistrationApi
 from LoginApi import LoginApi
@@ -138,4 +139,7 @@ app = webapp2.WSGIApplication([
     ('/knn',knn),
     ('/LoginApi',LoginApi),
     ('/TimelineApi',TimelineApi),
+    ('/searchApi',searchApi),
+    ('/followerApi',followerApi),
+    ('/followerApi',followingApi)
 ], debug=True)

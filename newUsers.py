@@ -38,9 +38,9 @@ class newUsers(blobstore_handlers.BlobstoreUploadHandler):
         followDecission = "False"
         oldUsersEmail = ""
 
-        if(email_address == newUsersEmail):
+        if(newUsersEmail != "" and email_address == newUsersEmail):
             self.redirect("/Timeline?email_address="+email_address)
-        else:
+        elif(newUsersEmail != "" and email_address != ""):
             collection_key = ndb.Key('timelinepost',newUsersEmail).get()
             if collection_key != None:
                 i = len(collection_key.caption) - 1
@@ -56,7 +56,6 @@ class newUsers(blobstore_handlers.BlobstoreUploadHandler):
                     i = i - 1
                 length = len(collection)
 
-
             newUserFFList = ndb.Key('followerfollowing',newUsersEmail).get()
             if newUserFFList != None:
                 userfollower = len(newUserFFList.follower)
@@ -69,9 +68,12 @@ class newUsers(blobstore_handlers.BlobstoreUploadHandler):
                     if i == newUsersEmail:
                         followDecission = 'True'
                         break
-            self.response.write(followDecission)
 
-            
+        elif(email_address == "" and newUsersEmail != ""):
+            self.redirect("/MainPage")
+        else:
+            self.redirect("/MainPage")
+
         template_values = {
              'collection' : collection,
              'Caption' : Caption,

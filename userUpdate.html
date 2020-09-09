@@ -193,36 +193,8 @@
   </div>
 
   <div class="topnav">
-    <a href="#" style="color:white" class="button btn" data-toggle="modal" data-target="#posts">Post</a>
-    <a href="/follower?email_address={{ email_address }}"><b><u>{{ userfollower }}</u></b>&nbsp;Follower</a>
-    <a href="/following?email_address={{ email_address }}"><b><u>{{ userfollowing }}</u></b>&nbsp;Following</a>
-    <form class="navbar-form navbar-right" method="post" action="/search?email_address={{ email_address }}">
-     <div class="input-group">
-      <input type="text" class="form-control" placeholder="Search" name="search">
-      <div class="input-group-btn">
-        <button class="btn btn-default" type="submit">
-          <li class="glyphicon glyphicon-search"></li>
-        </button>
-      </div>
-    </div>
-    </form>
-
-    <a href="#">Message</a>
-
     <a href='/' style="float:right" name="button" id="Logout" value="Logout">Logout</a>
-    <li class="dropdown">
-    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Setting<span class="caret"></span></a>
-    <ul class="dropdown-content">
-    <li><a href='/userUpdate'>Update Profile</a></li>
-      <li><a href="#">Logout</a></li>
-    </ul>
-  </li>
-  </li>
-
   </div>
-
-
-
   <div class="row">
     <center>
     <form action="/userUpdate?email_address={{ email_address }}" method="post">
@@ -259,9 +231,6 @@
           <hr>
         </form>
         </center>
-
-  </div>
-
-
-  </body>
+        </div>
+</body>
 </html>

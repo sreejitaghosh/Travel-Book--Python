@@ -7,7 +7,7 @@
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-   <script defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"></script>
+   <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCyr7VHb4Dv8xQq8zMx_i19rKJE_x4rtsw&callback=initMap"></script>
  </head>
  <style>
   * {
@@ -214,20 +214,9 @@
     </div>
     </form>
 
-    <a href="#">Message</a>
-
+    <a href='/userUpdate?email_address={{ email_address }}'>Update Profile</a>
     <a href='/' style="float:right" name="button" id="Logout" value="Logout">Logout</a>
-    <li class="dropdown">
-    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Setting<span class="caret"></span></a>
-    <ul class="dropdown-content">
-    <li><a href='/userUpdate?email_address={{ email_address }}'>Update Profile</a></li>
-      <li><a href="#">Logout</a></li>
-    </ul>
-  </li>
-</li>
-  </div>
-
-
+    </div>
 
   <div class="row">
     <div class="leftcolumn">
@@ -237,51 +226,13 @@
         {% for j in range(0,k) %}
 
         <h4><i style="font-size:24px;color:red" class="fa">&#xf041;</i> Location :<a href="/postdetails?email_address={{ email_address }}">{{ to_location[j] }}</a></h4>
-        <h4>Caption :{{ Caption[j] }}</h4>
+        <h4><i  style="color:blue">Caption :</i>{{ Caption[j] }}</h4>
           <img src="{{ collection[j] }}" style="width:1000px;height:500px;">
 
-          <h4>Experience :{{ experience[j] }}</h4>
-          <h4>Hotel :{{ hotel[j] }}</h4>
-          <h4>Flight :{{ flight[j] }}</h4>
-          <h4>Visa :{{ visa[j] }}</h4>
-          <br>
-          <form action="/Timeline?email_address={{ collection[l] }}" method="post">
-            <textarea class="form-control" name='CommentBox' placeholder="Start typing you comment here.." maxlength="200" /required></textarea>
-            <input type="submit" class="btn btn-default" name="submitButton" value="Comment">
-            <input type="reset" class="btn btn-default" value="Reset">
-            {% for i in NumberOfComments %}
-            {% if NumberOfComments[i] <= 5 %}
-                {% for j in range(NumberOfComments[i]-1,-1,-1) %}
-                    <a href="/otherUserProfile?OtherUsername={{ Commenting_User[i][j] }}">
-                      {{ Commenting_User[i][j] }}
-                    </a> : {{ Comments[i][j] }}
-                  <br>
-                {% endfor %}
-              {% elif NumberOfComments[i] == 0 %}
-                {% for j in range(NumberOfComments[i]-1,-1,-1) %}
-                  <a href="/otherUserProfile?OtherUsername={{ Commenting_User[i][j] }}">
-                  {{ Commenting_User[i][j] }}
-                  </a> : {{ Comments[i][j] }}
-                  <br>
-                {% endfor %}
-              {% else %}
-                {% for j in range(NumberOfComments[i]-1,NumberOfComments[i]-6,-1) %}
-                  <a href="/otherUserProfile?OtherUsername={{ Commenting_User[i][j] }}">
-                    {{ Commenting_User[i][j] }}
-                  </a> : {{ Comments[i][j] }}
-                  <br>
-                  {% endfor %}
-                  <br>
-                <a href="/ViewAllComments?user_Email={{ userLoggedIn.user_Email }}&image_Key={{ image_Key[i] }}">
-                  Click here to view all comments.
-                </a>
-                <br>
-                <br>
-              {% endif %}
-              {% endfor %}
-              </div>
-          </form>
-
+          <h4><i  style="color:blue">Experience :</i>{{ experience[j] }}</h4><hr>
+          <h4><i  style="color:blue">Hotel :</i>{{ hotel[j] }}</h4><hr>
+          <h4><i  style="color:blue">Flight :</i>{{ flight[j] }}</h4><hr>
+          <h4><i  style="color:blue">Visa:</i>{{ visa[j] }}</h4><hr>
           <hr>
           <hr>
         {% endfor %}
@@ -290,22 +241,10 @@
     </div>
     <div class="rightcolumn">
       <div class="card">
-        <h2>About Me</h2>
-      </div>
-      <div class="card">
         Google Map
         <div id="map"></div>
       </div>
-      <div class="card">
-        <h3>Follow Me</h3>
-      </div>
-    </div>
   </div>
-
-  <div class="footer">
-
-  </div>
-
   <div class="postscontainer">
   <div class="modal fade" id ="posts" role="dialog">
     <div class="modal-dialog">

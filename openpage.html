@@ -153,7 +153,7 @@
         <h2>Latest Post</h2>
         {% if SubLength == [] %}
           {% for i in range(0,length) %}
-          <h4><i style="font-size:24px;color:red" class="fa">&#xf041;</i> Location :<a href="/search?email_address={{ email_address }}">{{ to_location[j] }}</a></h4>
+          <h4><i style="font-size:24px;color:red" class="fa">&#xf041;</i> Location :<a href="/search?email_address={{ email_address }}">{{ to_location[i][j] }}</a></h4>
             <h4>User: {{ Name }}</h4
             <h4>Caption :<a href="/postdetails?email_address={{ email_address }}">{{ Caption[i] }}</a></h4>
             <img src="{{ collection[i] }}" style="width:1000px;height:500px;">
@@ -167,7 +167,7 @@
           {% for i in range(0,length) %}
             {% for j in range(0,SubLength[i]) %}
             <hr>
-            <h4><i style="font-size:24px;color:red" class="fa">&#xf041;</i> Location :<a href="/search">{{ to_location[j] }}</a></h4>
+            <h4><i style="font-size:24px;color:red" class="fa">&#xf041;</i> Location :<a href="/search">{{ to_location[i][j] }}</a></h4>
               <h4>User: {{ Name }}</h4>
               <h4>Caption :{{ Caption[i][j] }}</h4>
               <img src="{{ collection[i][j] }}" style="width:1000px;height:500px;">
